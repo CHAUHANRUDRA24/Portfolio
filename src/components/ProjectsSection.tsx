@@ -201,34 +201,46 @@ export const ProjectsSection: React.FC = () => {
             </FadeIn>
 
             <div className="flex flex-col gap-6">
-              <FadeIn delay={0.1} y={25} className="flex gap-4 p-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300">
-                <Trophy className="w-8 h-8 sm:w-10 sm:h-10 text-[#BE4C00] flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-bold text-sm sm:text-base text-textLight uppercase tracking-wide">
-                    Winner – Technovation Hackathon 2026
-                  </h4>
-                  <span className="text-[10px] sm:text-xs font-semibold text-[#B600A8] uppercase tracking-wider block mt-0.5">
-                    Rank #1
-                  </span>
-                  <p className="text-xs sm:text-sm font-light text-textLight/60 mt-1.5 leading-relaxed">
-                    Recognized for hardware prototyping, custom logic circuit design, and robust embedded system implementation.
-                  </p>
-                </div>
+              <FadeIn delay={0.1} y={25}>
+                <motion.div 
+                  whileHover={{ y: -6, scale: 1.015 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  className="group flex gap-4 p-5 rounded-2xl border border-white/5 hover:border-[#BE4C00]/40 bg-white/[0.02] hover:bg-white/[0.04] hover:shadow-[0_15px_30px_rgba(190,76,0,0.12)] transition-all duration-300 cursor-pointer"
+                >
+                  <Trophy className="w-8 h-8 sm:w-10 sm:h-10 text-[#BE4C00] flex-shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110" />
+                  <div>
+                    <h4 className="font-bold text-sm sm:text-base text-textLight uppercase tracking-wide">
+                      Winner – Technovation Hackathon 2026
+                    </h4>
+                    <span className="text-[10px] sm:text-xs font-semibold text-[#B600A8] uppercase tracking-wider block mt-0.5">
+                      Rank #1
+                    </span>
+                    <p className="text-xs sm:text-sm font-light text-textLight/60 mt-1.5 leading-relaxed">
+                      Recognized for hardware prototyping, custom logic circuit design, and robust embedded system implementation.
+                    </p>
+                  </div>
+                </motion.div>
               </FadeIn>
 
-              <FadeIn delay={0.2} y={25} className="flex gap-4 p-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300">
-                <Award className="w-8 h-8 sm:w-10 sm:h-10 text-[#7621B0] flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-bold text-sm sm:text-base text-textLight uppercase tracking-wide">
-                    Qualified Team – Vikas Saptah Hackathon 2025
-                  </h4>
-                  <span className="text-[10px] sm:text-xs font-semibold text-[#B600A8] uppercase tracking-wider block mt-0.5">
-                    SSIP Gujarat
-                  </span>
-                  <p className="text-xs sm:text-sm font-light text-textLight/60 mt-1.5 leading-relaxed">
-                    Only team from GCET selected for the final round, recognized for highly innovative circuit design.
-                  </p>
-                </div>
+              <FadeIn delay={0.2} y={25}>
+                <motion.div 
+                  whileHover={{ y: -6, scale: 1.015 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  className="group flex gap-4 p-5 rounded-2xl border border-white/5 hover:border-[#7621B0]/40 bg-white/[0.02] hover:bg-white/[0.04] hover:shadow-[0_15px_30px_rgba(118,33,176,0.12)] transition-all duration-300 cursor-pointer"
+                >
+                  <Award className="w-8 h-8 sm:w-10 sm:h-10 text-[#7621B0] flex-shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110" />
+                  <div>
+                    <h4 className="font-bold text-sm sm:text-base text-textLight uppercase tracking-wide">
+                      Qualified Team – Vikas Saptah Hackathon 2025
+                    </h4>
+                    <span className="text-[10px] sm:text-xs font-semibold text-[#B600A8] uppercase tracking-wider block mt-0.5">
+                      SSIP Gujarat
+                    </span>
+                    <p className="text-xs sm:text-sm font-light text-textLight/60 mt-1.5 leading-relaxed">
+                      Only team from GCET selected for the final round, recognized for highly innovative circuit design.
+                    </p>
+                  </div>
+                </motion.div>
               </FadeIn>
             </div>
           </div>
@@ -242,49 +254,67 @@ export const ProjectsSection: React.FC = () => {
             </FadeIn>
 
             <div className="flex flex-col gap-6">
-              <FadeIn delay={0.15} y={25} className="flex gap-4 p-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300">
-                <Cpu className="w-8 h-8 sm:w-10 sm:h-10 text-[#B600A8] flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-bold text-sm sm:text-base text-textLight uppercase tracking-wide">
-                    Gen AI Academy 2.0 – DevOps Track
-                  </h4>
-                  <span className="text-[10px] sm:text-xs font-semibold text-[#BE4C00] uppercase tracking-wider block mt-0.5">
-                    Google Cloud
-                  </span>
-                  <p className="text-xs sm:text-sm font-light text-textLight/60 mt-1.5 leading-relaxed">
-                    Practical experience in CI/CD, Kubernetes (GKE), and secure cloud deployment tools on Google Cloud Platform.
-                  </p>
-                </div>
+              <FadeIn delay={0.15} y={25}>
+                <motion.div 
+                  whileHover={{ y: -6, scale: 1.015 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  className="group flex gap-4 p-5 rounded-2xl border border-white/5 hover:border-[#B600A8]/40 bg-white/[0.02] hover:bg-white/[0.04] hover:shadow-[0_15px_30px_rgba(182,0,168,0.12)] transition-all duration-300 cursor-pointer"
+                >
+                  <Cpu className="w-8 h-8 sm:w-10 sm:h-10 text-[#B600A8] flex-shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110" />
+                  <div>
+                    <h4 className="font-bold text-sm sm:text-base text-textLight uppercase tracking-wide">
+                      Gen AI Academy 2.0 – DevOps Track
+                    </h4>
+                    <span className="text-[10px] sm:text-xs font-semibold text-[#BE4C00] uppercase tracking-wider block mt-0.5">
+                      Google Cloud
+                    </span>
+                    <p className="text-xs sm:text-sm font-light text-textLight/60 mt-1.5 leading-relaxed">
+                      Practical experience in CI/CD, Kubernetes (GKE), and secure cloud deployment tools on Google Cloud Platform.
+                    </p>
+                  </div>
+                </motion.div>
               </FadeIn>
 
-              <FadeIn delay={0.25} y={25} className="flex gap-4 p-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300">
-                <BookOpen className="w-8 h-8 sm:w-10 sm:h-10 text-[#7621B0] flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-bold text-sm sm:text-base text-textLight uppercase tracking-wide">
-                    Codeversity National Hackathon 2026
-                  </h4>
-                  <span className="text-[10px] sm:text-xs font-semibold text-[#BE4C00] uppercase tracking-wider block mt-0.5">
-                    IIT Gandhinagar
-                  </span>
-                  <p className="text-xs sm:text-sm font-light text-textLight/60 mt-1.5 leading-relaxed">
-                    Represented Team Creato4 in developing advanced AI-driven solutions during a 3-day intensive competition.
-                  </p>
-                </div>
+              <FadeIn delay={0.25} y={25}>
+                <motion.div 
+                  whileHover={{ y: -6, scale: 1.015 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  className="group flex gap-4 p-5 rounded-2xl border border-white/5 hover:border-[#7621B0]/40 bg-white/[0.02] hover:bg-white/[0.04] hover:shadow-[0_15px_30px_rgba(118,33,176,0.12)] transition-all duration-300 cursor-pointer"
+                >
+                  <BookOpen className="w-8 h-8 sm:w-10 sm:h-10 text-[#7621B0] flex-shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110" />
+                  <div>
+                    <h4 className="font-bold text-sm sm:text-base text-textLight uppercase tracking-wide">
+                      Codeversity National Hackathon 2026
+                    </h4>
+                    <span className="text-[10px] sm:text-xs font-semibold text-[#BE4C00] uppercase tracking-wider block mt-0.5">
+                      IIT Gandhinagar
+                    </span>
+                    <p className="text-xs sm:text-sm font-light text-textLight/60 mt-1.5 leading-relaxed">
+                      Represented Team Creato4 in developing advanced AI-driven solutions during a 3-day intensive competition.
+                    </p>
+                  </div>
+                </motion.div>
               </FadeIn>
 
-              <FadeIn delay={0.35} y={25} className="flex gap-4 p-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300">
-                <ShieldAlert className="w-8 h-8 sm:w-10 sm:h-10 text-[#BE4C00] flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-bold text-sm sm:text-base text-textLight uppercase tracking-wide">
-                    AI Technical Workshop
-                  </h4>
-                  <span className="text-[10px] sm:text-xs font-semibold text-[#B600A8] uppercase tracking-wider block mt-0.5">
-                    IIT Gandhinagar
-                  </span>
-                  <p className="text-xs sm:text-sm font-light text-textLight/60 mt-1.5 leading-relaxed">
-                    Completed specialized training covering core AI implementation and leading industry frameworks.
-                  </p>
-                </div>
+              <FadeIn delay={0.35} y={25}>
+                <motion.div 
+                  whileHover={{ y: -6, scale: 1.015 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  className="group flex gap-4 p-5 rounded-2xl border border-white/5 hover:border-[#BE4C00]/40 bg-white/[0.02] hover:bg-white/[0.04] hover:shadow-[0_15px_30px_rgba(190,76,0,0.12)] transition-all duration-300 cursor-pointer"
+                >
+                  <ShieldAlert className="w-8 h-8 sm:w-10 sm:h-10 text-[#BE4C00] flex-shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110" />
+                  <div>
+                    <h4 className="font-bold text-sm sm:text-base text-textLight uppercase tracking-wide">
+                      AI Technical Workshop
+                    </h4>
+                    <span className="text-[10px] sm:text-xs font-semibold text-[#B600A8] uppercase tracking-wider block mt-0.5">
+                      IIT Gandhinagar
+                    </span>
+                    <p className="text-xs sm:text-sm font-light text-textLight/60 mt-1.5 leading-relaxed">
+                      Completed specialized training covering core AI implementation and leading industry frameworks.
+                    </p>
+                  </div>
+                </motion.div>
               </FadeIn>
             </div>
           </div>
