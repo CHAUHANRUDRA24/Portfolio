@@ -52,7 +52,7 @@ const projectsList: ProjectData[] = [
     category: 'AI & Smart Agriculture Platform',
     tech: 'React · Firebase · AI/ML · IoT Integration · Cloud',
     href: 'https://lnkd.in/gk_cjmSg',
-    img1: '/agromind1.png',
+    img1: '/agromind1.jpg',
     img2: '/agromind2.png',
     img3: '/agromind3.png',
   },
