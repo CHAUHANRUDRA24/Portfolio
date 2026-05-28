@@ -60,4 +60,19 @@ export const certificatesList: CertificateData[] = [
     accent: "yellow",
     year: "2026"
   },
+  {
+    id: "google-genai-academy-2",
+    title: "Gen AI Academy 2.0 – DevOps Learning Track",
+    issuer: "Google Cloud & H2S",
+    issued: "Jan 2026",
+    credentialId: "2025H2S10GENAI-DE300868",
+    credentialUrl: "",
+    imageUrl: "/assets/certificates/google-genai-academy-2/google-genai-academy-2.png",
+    imageLabel: "google-genai-academy-2.png",
+    note: "For successfully completing the DevOps learning track of Gen AI Academy 2.0 by Google Cloud. Explored CI/CD pipelines using Artifact Registry, Cloud Build, and Cloud Deploy, along with Kubernetes management on GKE including kubectl deployments, monitoring, and continuous delivery practices.",
+    skills: ["Google Cloud", "DevOps", "CI/CD", "Artifact Registry", "Cloud Build", "Cloud Deploy", "Kubernetes (GKE)", "kubectl"],
+    featured: true,
+    accent: "blue",
+    year: "2026"
+  },
 ];
