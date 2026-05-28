@@ -16,6 +16,21 @@ export interface CertificateData {
 
 export const certificatesList: CertificateData[] = [
   {
+    id: "google-deepmind-slm",
+    title: "Google DeepMind: Train A Small Language Model",
+    issuer: "Google Skills",
+    issued: "Dec 2025",
+    credentialId: "20970951",
+    credentialUrl: "https://www.skills.google/public_profiles/d7fb9ed1-950e-49d2-a949-b4bfe248e575/badges/20970951?utm_medium=social&utm_source=linkedin&utm_campaign=ql-social-share",
+    imageUrl: "/assets/certificates/google-deepmind-slm/google-deepmind-slm.png",
+    imageLabel: "google-deepmind-slm.png",
+    note: "Demonstrated skills in formulating language model research problems, building tokenizers, preparing datasets, and executing the training loop for a small transformer language model.",
+    skills: ["Google DeepMind", "Large Language Models", "Transformers", "Tokenization", "Model Training"],
+    featured: true,
+    accent: "blue",
+    year: "2025"
+  },
+  {
     id: "technovation-2026-winner",
     title: "1st Place Winner - Technovation Hackathon 2026",
     issuer: "Sardar Patel University (SPU), Vallabh Vidyanagar",
