@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { FadeIn } from './FadeIn';
 
 interface ServiceItem {
@@ -56,22 +57,28 @@ export const ServicesSection: React.FC = () => {
               key={service.num} 
               delay={index * 0.1} 
               y={30} 
-              className="flex items-center gap-6 sm:gap-10 md:gap-16 border-b border-[#0C0C0C]/15 py-8 sm:py-10 md:py-12"
+              className="border-b border-[#0C0C0C]/15"
             >
-              {/* Left: Huge Number */}
-              <div className="font-black text-[#0C0C0C] text-[3rem] sm:text-[6rem] md:text-[8rem] lg:text-[9rem] leading-none select-none min-w-[70px] sm:min-w-[150px] md:min-w-[200px]">
-                {service.num}
-              </div>
+              <motion.div 
+                whileHover={{ x: 16 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+                className="group flex items-center gap-6 sm:gap-10 md:gap-16 py-8 sm:py-10 md:py-12 cursor-pointer transition-colors duration-300 hover:bg-[#0c0c0c]/[0.01] px-4 -mx-4 rounded-2xl"
+              >
+                {/* Left: Huge Number */}
+                <div className="font-black text-[#0C0C0C] text-[3rem] sm:text-[6rem] md:text-[8rem] lg:text-[9rem] leading-none select-none min-w-[70px] sm:min-w-[150px] md:min-w-[200px] transition-colors duration-300 group-hover:text-[#B600A8]">
+                  {service.num}
+                </div>
 
-              {/* Right: Stacked Name + Description */}
-              <div className="flex flex-col gap-2 flex-grow">
-                <h3 className="font-medium uppercase text-[#0C0C0C] text-[1.1rem] sm:text-[1.6rem] md:text-[2.1rem] leading-tight">
-                  {service.title}
-                </h3>
-                <p className="font-light leading-relaxed max-w-2xl text-[#0C0C0C]/60 text-[0.85rem] sm:text-[1.1rem] md:text-[1.25rem]">
-                  {service.desc}
-                </p>
-              </div>
+                {/* Right: Stacked Name + Description */}
+                <div className="flex flex-col gap-2 flex-grow">
+                  <h3 className="font-medium uppercase text-[#0C0C0C] text-[1.1rem] sm:text-[1.6rem] md:text-[2.1rem] leading-tight transition-colors duration-300 group-hover:text-[#7621B0]">
+                    {service.title}
+                  </h3>
+                  <p className="font-light leading-relaxed max-w-2xl text-[#0C0C0C]/60 text-[0.85rem] sm:text-[1.1rem] md:text-[1.25rem] transition-colors duration-300 group-hover:text-[#0C0C0C]/85">
+                    {service.desc}
+                  </p>
+                </div>
+              </motion.div>
             </FadeIn>
           ))}
         </div>

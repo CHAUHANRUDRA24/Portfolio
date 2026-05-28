@@ -60,18 +60,27 @@ const ProjectCard: React.FC<CardProps> = ({ project, index, progress, total }) =
   const start = index * 0.22;
   const scale = useTransform(progress, [start, 0.85], [1, targetScale]);
 
+  // Color options tailored to each project's context: 
+  // 1: Cloud/AI (Pink/Purple), 2: Hardware/Safety (Indigo), 3: Lighting/Automation (Orange)
+  const hoverColors = [
+    'hover:border-[#B600A8] hover:shadow-[0_20px_60px_rgba(182,0,168,0.25)]',
+    'hover:border-[#7621B0] hover:shadow-[0_20px_60px_rgba(118,33,176,0.25)]',
+    'hover:border-[#BE4C00] hover:shadow-[0_20px_60px_rgba(190,76,0,0.25)]',
+  ];
+  const hoverClass = hoverColors[index % hoverColors.length];
+
   return (
     <div className="h-[90vh] sm:h-[85vh] flex items-center justify-center sticky top-20 md:top-28">
       <motion.div
         style={{
           scale,
         }}
-        className="w-full rounded-[30px] sm:rounded-[40px] md:rounded-[50px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 sm:p-6 md:p-8 flex flex-col justify-between gap-4 h-[75vh] sm:h-[80vh] shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
+        className={`w-full rounded-[30px] sm:rounded-[40px] md:rounded-[50px] border-2 border-[#D7E2EA]/20 bg-[#0C0C0C] p-4 sm:p-6 md:p-8 flex flex-col justify-between gap-4 h-[75vh] sm:h-[80vh] shadow-[0_20px_60px_rgba(0,0,0,0.8)] transition-all duration-500 ease-out group/card ${hoverClass}`}
       >
         {/* Card Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div className="flex items-center gap-3 sm:gap-5">
-            <span className="font-black text-[#D7E2EA]/10 text-[2.5rem] sm:text-[4rem] md:text-[5rem] leading-none select-none">
+            <span className="font-black text-[#D7E2EA]/10 text-[2.5rem] sm:text-[4rem] md:text-[5rem] leading-none select-none transition-colors duration-500 group-hover/card:text-[#D7E2EA]/20">
               {project.num}
             </span>
             <div>
@@ -86,7 +95,7 @@ const ProjectCard: React.FC<CardProps> = ({ project, index, progress, total }) =
               </p>
             </div>
           </div>
-          <LiveProjectButton href={project.href} className="self-stretch sm:self-auto text-xs py-2 px-6 sm:py-2.5 sm:px-8" />
+          <LiveProjectButton href={project.href} className="self-stretch sm:self-auto text-xs py-2 px-6 sm:py-2.5 sm:px-8 transition-colors duration-300" />
         </div>
 
         {/* Card Body - Grid */}
@@ -94,33 +103,33 @@ const ProjectCard: React.FC<CardProps> = ({ project, index, progress, total }) =
           {/* Column 1 (40% width) - 2 Stacked Images */}
           <div className="col-span-10 sm:col-span-4 flex flex-col gap-3 justify-between">
             <div 
-              className="w-full rounded-[20px] sm:rounded-[30px] md:rounded-[40px] overflow-hidden bg-white/5 flex-grow"
+              className="w-full rounded-[20px] sm:rounded-[30px] md:rounded-[40px] overflow-hidden bg-white/5 flex-grow group/img relative"
             >
               <img 
                 src={project.img1} 
                 alt={`${project.title} Detail 1`} 
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-108 group-hover/card:scale-[1.02]"
                 loading="lazy"
               />
             </div>
             <div 
-              className="w-full rounded-[20px] sm:rounded-[30px] md:rounded-[40px] overflow-hidden bg-white/5 flex-grow hidden sm:block"
+              className="w-full rounded-[20px] sm:rounded-[30px] md:rounded-[40px] overflow-hidden bg-white/5 flex-grow hidden sm:block group/img relative"
             >
               <img 
                 src={project.img2} 
                 alt={`${project.title} Detail 2`} 
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-108 group-hover/card:scale-[1.02]"
                 loading="lazy"
               />
             </div>
           </div>
 
           {/* Column 2 (60% width) - Tall Image */}
-          <div className="col-span-10 sm:col-span-6 rounded-[20px] sm:rounded-[30px] md:rounded-[40px] overflow-hidden bg-white/5 flex-grow min-h-[160px] sm:min-h-0">
+          <div className="col-span-10 sm:col-span-6 rounded-[20px] sm:rounded-[30px] md:rounded-[40px] overflow-hidden bg-white/5 flex-grow min-h-[160px] sm:min-h-0 group/img relative">
             <img 
               src={project.img3} 
               alt={`${project.title} Full View`} 
-              className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-108 group-hover/card:scale-[1.02]"
               loading="lazy"
             />
           </div>
