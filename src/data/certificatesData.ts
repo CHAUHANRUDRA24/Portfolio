@@ -16,6 +16,21 @@ export interface CertificateData {
 
 export const certificatesList: CertificateData[] = [
   {
+    id: "oracle-oci-foundations-2025",
+    title: "Oracle Cloud Infrastructure 2025 Certified Foundations Associate",
+    issuer: "Oracle University",
+    issued: "Apr 2026",
+    credentialId: "103443099OCI25FNDCFA",
+    credentialUrl: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=F9E7B49ADEA11FACF19AAE826C97969782FA84E855682D6FB6CFFE10A4F3AFE3",
+    imageUrl: "/assets/certificates/oracle-oci-foundations/oracle-oci-foundations.png",
+    imageLabel: "oracle-oci-foundations.png",
+    note: "Demonstrates foundational knowledge of Oracle Cloud Infrastructure (OCI) services, including public cloud concepts, core infrastructure services, security, architecture, and billing/pricing models.",
+    skills: ["Oracle Cloud Infrastructure (OCI)", "Cloud Computing", "Infrastructure as a Service (IaaS)", "Cloud Security"],
+    featured: true,
+    accent: "red",
+    year: "2026"
+  },
+  {
     id: "google-deepmind-slm",
     title: "Google DeepMind: Train A Small Language Model",
     issuer: "Google Skills",
