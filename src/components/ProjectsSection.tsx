@@ -106,55 +106,55 @@ export const ProjectsSection: React.FC = () => {
     };
   }, [selectedCert]);
 
-  // Accent mapping for custom styling
-  const accentColorMap: Record<string, { pin: string; badge: string; text: string; border: string }> = {
+  // Accent mapping for custom premium dark styling
+  const accentColorMap: Record<string, { badge: string; text: string; border: string; glow: string }> = {
     yellow: {
-      pin: 'bg-yellow-400 border-yellow-600',
-      badge: 'bg-yellow-100 text-yellow-900 border-yellow-300',
+      badge: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
       text: 'text-yellow-400',
-      border: 'hover:border-yellow-400/40 hover:shadow-[0_15px_30px_rgba(234,179,8,0.15)]',
+      border: 'hover:border-yellow-500/30',
+      glow: 'rgba(234,179,8,0.15)',
     },
     blue: {
-      pin: 'bg-blue-500 border-blue-700',
-      badge: 'bg-blue-100 text-blue-900 border-blue-300',
+      badge: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
       text: 'text-blue-400',
-      border: 'hover:border-blue-400/40 hover:shadow-[0_15px_30px_rgba(59,130,246,0.15)]',
+      border: 'hover:border-blue-500/30',
+      glow: 'rgba(59,130,246,0.15)',
     },
     green: {
-      pin: 'bg-green-500 border-green-700',
-      badge: 'bg-green-100 text-green-900 border-green-300',
+      badge: 'bg-green-500/10 text-green-400 border-green-500/20',
       text: 'text-green-400',
-      border: 'hover:border-green-400/40 hover:shadow-[0_15px_30px_rgba(34,197,94,0.15)]',
+      border: 'hover:border-green-500/30',
+      glow: 'rgba(34,197,94,0.15)',
     },
     red: {
-      pin: 'bg-red-500 border-red-700',
-      badge: 'bg-red-100 text-red-900 border-red-300',
+      badge: 'bg-red-500/10 text-red-400 border-red-500/20',
       text: 'text-red-400',
-      border: 'hover:border-red-400/40 hover:shadow-[0_15px_30px_rgba(239,68,68,0.15)]',
+      border: 'hover:border-red-400/30',
+      glow: 'rgba(239,68,68,0.15)',
     },
     indigo: {
-      pin: 'bg-indigo-500 border-indigo-700',
-      badge: 'bg-indigo-100 text-indigo-900 border-indigo-300',
+      badge: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
       text: 'text-indigo-400',
-      border: 'hover:border-indigo-400/40 hover:shadow-[0_15px_30px_rgba(99,102,241,0.15)]',
+      border: 'hover:border-indigo-500/30',
+      glow: 'rgba(99,102,241,0.15)',
     },
     orange: {
-      pin: 'bg-orange-500 border-orange-700',
-      badge: 'bg-orange-100 text-orange-900 border-orange-300',
+      badge: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
       text: 'text-orange-400',
-      border: 'hover:border-orange-400/40 hover:shadow-[0_15px_30px_rgba(249,115,22,0.15)]',
+      border: 'hover:border-orange-500/30',
+      glow: 'rgba(249,115,22,0.15)',
     },
     pink: {
-      pin: 'bg-pink-500 border-pink-700',
-      badge: 'bg-pink-100 text-pink-900 border-pink-300',
+      badge: 'bg-pink-500/10 text-pink-400 border-pink-500/20',
       text: 'text-pink-400',
-      border: 'hover:border-pink-400/40 hover:shadow-[0_15px_30px_rgba(236,72,153,0.15)]',
+      border: 'hover:border-pink-500/30',
+      glow: 'rgba(236,72,153,0.15)',
     },
     slate: {
-      pin: 'bg-slate-500 border-slate-700',
-      badge: 'bg-slate-100 text-slate-900 border-slate-300',
+      badge: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
       text: 'text-slate-400',
-      border: 'hover:border-slate-400/40 hover:shadow-[0_15px_30px_rgba(100,116,139,0.15)]',
+      border: 'hover:border-slate-500/30',
+      glow: 'rgba(100,116,139,0.15)',
     },
   };
 
@@ -295,46 +295,49 @@ export const ProjectsSection: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4">
             {certificatesList.map((cert, index) => {
-              const rotations = ['rotate-1', '-rotate-2', 'rotate-2', '-rotate-1'];
-              const rotationClass = rotations[index % rotations.length];
               const accent = accentColorMap[cert.accent] || accentColorMap.yellow;
               const Icon = getAccentIcon(cert.accent);
 
               return (
                 <FadeIn key={cert.id} delay={0.05 * index} y={25}>
                   <motion.div 
-                    whileHover={{ y: -6, scale: 1.02 }}
+                    whileHover={{ 
+                      y: -6, 
+                      scale: 1.015,
+                      boxShadow: `0 20px 45px -10px ${accent.glow}`
+                    }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                     onClick={() => setSelectedCert(cert)}
-                    className={`group relative flex flex-col gap-4 p-6 rounded-3xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300 cursor-pointer h-full justify-between ${rotationClass} hover:rotate-0 hover:z-20 ${accent.border}`}
+                    className={`group relative flex flex-col gap-5 p-6 rounded-[24px] border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-300 cursor-pointer h-full justify-between ${accent.border}`}
                   >
-                    <div className={`absolute -top-1.5 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full shadow-sm border z-10 ${accent.pin}`} />
-                    
                     <div>
                       <div className="flex justify-between items-start gap-3 mb-2">
-                        <Icon className={`w-8 h-8 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 ${accent.text}`} />
-                        <span className="text-xs font-bold font-mono text-textLight/40 mt-1">
+                        <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5 transition-transform duration-300 group-hover:scale-110">
+                          <Icon className={`w-6 h-6 flex-shrink-0 ${accent.text}`} />
+                        </div>
+                        <span className="text-xs font-bold font-mono text-textLight/30 mt-2">
                           {cert.year || cert.issued}
                         </span>
                       </div>
-                      <h4 className="font-bold text-base sm:text-lg text-textLight uppercase tracking-wide leading-snug group-hover:text-primary transition-colors">
+                      <h4 className="font-bold text-base sm:text-lg text-textLight uppercase tracking-wide leading-snug group-hover:text-primary transition-colors mt-2">
                         {cert.title}
                       </h4>
-                      <p className="text-xs text-textLight/50 mt-1">
+                      <p className="text-xs text-textLight/45 mt-1 font-mono font-medium">
                         {cert.issuer}
                       </p>
                       {cert.note && (
-                        <p className="text-xs sm:text-sm font-light text-textLight/60 mt-3 leading-relaxed line-clamp-3">
+                        <p className="text-xs sm:text-sm font-light text-textLight/60 mt-3.5 leading-relaxed line-clamp-3">
                           {cert.note}
                         </p>
                       )}
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between gap-3">
-                      <span className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded border ${accent.badge}`}>
+                    <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between gap-3">
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${accent.badge}`}>
                         {cert.credentialId ? `ID: ${cert.credentialId}` : cert.issued}
                       </span>
-                      <span className="text-xs font-bold text-primary group-hover:underline">
-                        Open
+                      <span className="text-xs font-black uppercase tracking-wider text-primary group-hover:translate-x-0.5 transition-transform duration-300">
+                        Open →
                       </span>
                     </div>
                   </motion.div>
@@ -355,69 +358,63 @@ export const ProjectsSection: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedCert(null)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
+              className="absolute inset-0 bg-black/90 backdrop-blur-sm cursor-pointer"
             />
             
             {/* Modal Sheet */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95, rotate: 2 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0.5 }}
-              exit={{ opacity: 0, scale: 0.95, rotate: 2 }}
-              transition={{ type: 'spring', duration: 0.5 }}
-              className="relative w-full max-w-2xl bg-[#fcfbf9] text-black p-6 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gray-200 rounded-sm mx-auto max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-3rem)] overflow-y-auto min-h-[400px] flex flex-col gap-6 items-center"
+              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 30, scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+              className="relative w-full max-w-2xl bg-[#090909] text-textLight p-6 md:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.8)] border border-white/10 rounded-[28px] mx-auto max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-3rem)] overflow-y-auto min-h-[400px] flex flex-col gap-6 items-center"
             >
-              {/* Red Header Pin */}
-              <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#d32f2f] shadow-[inset_-4px_-4px_4px_rgba(0,0,0,0.3),_2px_2px_4px_rgba(0,0,0,0.3)] z-20" />
-              
               {/* Close Button */}
               <button 
                 onClick={() => setSelectedCert(null)}
-                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center cursor-pointer group z-20"
+                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center cursor-pointer group z-20 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
                 aria-label="Close modal"
               >
-                <X className="w-8 h-8 text-gray-400 group-hover:text-red-600 transition-colors" />
+                <X className="w-5 h-5 text-textLight/70 group-hover:text-textLight transition-colors" />
               </button>
 
               {/* Modal Body */}
               <div className="flex flex-col gap-5 items-center text-center w-full mt-4">
-                <h2 className="font-extrabold text-2xl md:text-3xl text-gray-900 leading-tight">
+                <h2 className="font-black text-2xl md:text-3xl text-textLight uppercase tracking-tight max-w-[90%]">
                   {selectedCert.title}
                 </h2>
-                <p className="text-sm font-semibold uppercase tracking-wider text-gray-500 -mt-2">
+                <p className="text-sm font-semibold uppercase tracking-wider text-[#BE4C00] -mt-2">
                   {selectedCert.issuer} • {selectedCert.issued}
                 </p>
 
                 {/* Double Bordered Image Container (4:3 aspect ratio) */}
-                <div className="w-full aspect-[4/3] border-4 border-double border-gray-300 p-2 sm:p-4 bg-white relative overflow-hidden shadow-inner flex items-center justify-center">
+                <div className="w-full aspect-[4/3] border border-white/10 p-2 sm:p-4 bg-white/[0.01] relative overflow-hidden rounded-2xl flex items-center justify-center group/modalimg shadow-[inset_0_4px_30px_rgba(0,0,0,0.5)]">
                   {selectedCert.imageUrl ? (
                     <img 
                       src={selectedCert.imageUrl} 
                       alt={selectedCert.title} 
-                      className="max-w-full max-h-full object-contain rounded-sm"
+                      className="max-w-full max-h-full object-contain rounded-lg transition-transform duration-700 ease-out group-hover/modalimg:scale-[1.015]"
                     />
                   ) : (
-                    <div className="w-full h-full border border-gray-200 flex flex-col items-center justify-center text-center p-6 bg-gray-5">
-                      <BookOpen className="text-5xl text-gray-300 mb-3" />
-                      <p className="font-sans text-lg font-bold text-gray-500">No Preview Linked</p>
-                      <p className="text-xs text-gray-400 mt-2">{selectedCert.imageLabel || 'No preview linked yet'}</p>
+                    <div className="w-full h-full border border-white/5 flex flex-col items-center justify-center text-center p-6 bg-white/[0.01] rounded-lg">
+                      <BookOpen className="text-5xl text-white/20 mb-3" />
+                      <p className="font-sans text-lg font-bold text-textLight/60">No Preview Linked</p>
+                      <p className="text-xs text-textLight/30 mt-2">{selectedCert.imageLabel || 'No preview linked yet'}</p>
                     </div>
                   )}
                 </div>
 
                 {/* Skewed Yellow Credential ID Badge */}
                 {selectedCert.credentialId && (
-                  <div className="relative mt-1 rotate-[-1deg]">
-                    <div className="absolute inset-0 bg-[#fef08a] transform -skew-x-12 border border-black/10"></div>
-                    <div className="relative px-6 py-2 font-mono text-sm tracking-wider text-gray-800 flex flex-col">
-                      <span className="text-[9px] uppercase text-gray-500 mb-0.5 tracking-normal font-sans font-semibold">Credential ID</span>
-                      <span className="font-bold">{selectedCert.credentialId}</span>
-                    </div>
+                  <div className="px-4 py-2 bg-white/[0.03] border border-white/10 rounded-xl text-sm font-mono tracking-wider text-textLight/90 flex items-center gap-3">
+                    <span className="text-[10px] uppercase text-textLight/40 tracking-wider font-sans font-bold">Credential ID</span>
+                    <span className="font-black text-primary">{selectedCert.credentialId}</span>
                   </div>
                 )}
 
                 {/* Description Note */}
                 {selectedCert.note && (
-                  <p className="text-sm sm:text-base text-gray-700 max-w-xl leading-relaxed">
+                  <p className="text-sm sm:text-base text-textLight/80 max-w-xl leading-relaxed font-light">
                     {selectedCert.note}
                   </p>
                 )}
@@ -428,7 +425,7 @@ export const ProjectsSection: React.FC = () => {
                     {selectedCert.skills.map((skill) => (
                       <span 
                         key={skill} 
-                        className="px-3 py-1 bg-gray-100 border border-gray-200 rounded-full text-xs font-medium text-gray-700"
+                        className="px-3.5 py-1.5 bg-white/[0.03] border border-white/5 rounded-full text-xs font-semibold text-textLight/70 hover:text-textLight hover:border-white/20 transition-colors"
                       >
                         {skill}
                       </span>
@@ -437,7 +434,7 @@ export const ProjectsSection: React.FC = () => {
                 )}
 
                 {/* Filename Note */}
-                <p className="text-[10px] text-gray-400 font-mono">
+                <p className="text-[10px] text-textLight/30 font-mono">
                   Original file: {selectedCert.imageLabel || selectedCert.imageUrl.split('/').pop()}
                 </p>
 
@@ -448,13 +445,10 @@ export const ProjectsSection: React.FC = () => {
                       href={selectedCert.credentialUrl} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="group relative inline-block mt-1 no-underline text-gray-900"
+                      className="group relative px-8 py-3 bg-[#BE4C00]/80 hover:bg-[#BE4C00] text-textLight font-bold text-sm sm:text-base rounded-xl transition-all duration-300 flex items-center gap-2 shadow-[0_5px_15px_rgba(190,76,0,0.3)] hover:shadow-[0_5px_25px_rgba(190,76,0,0.5)] border border-[#BE4C00]/20"
                     >
-                      <span className="absolute inset-0 bg-[#fef08a] transform -skew-y-2 rounded-sm opacity-80 group-hover:opacity-100 transition-opacity"></span>
-                      <span className="relative px-8 py-3 font-bold text-sm sm:text-base flex items-center gap-2 border border-gray-900/10">
-                        View Original Link
-                        <ExternalLink className="w-4 h-4" />
-                      </span>
+                      <span>View Original Link</span>
+                      <ExternalLink className="w-4 h-4" />
                     </a>
                   </div>
                 )}
