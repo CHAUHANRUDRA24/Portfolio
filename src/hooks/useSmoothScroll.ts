@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
 
-export const useSmoothScroll = (active: boolean = true) => {
+export const useSmoothScroll = () => {
   useEffect(() => {
-    if (!active) return;
     // Initialize Lenis
     const lenis = new Lenis({
       duration: 1.2,
