@@ -103,11 +103,7 @@ export const Footer: React.FC = () => {
             <span className="text-white/20">|</span>
             <button 
               onClick={() => {
-                try {
-                  localStorage.removeItem('hasSeenIntro');
-                } catch (e) {
-                  console.warn('localStorage access is blocked:', e);
-                }
+                sessionStorage.removeItem('hasSeenIntro');
                 window.location.reload();
               }}
               className="hover:text-[#00f0ff] hover:underline cursor-pointer transition-colors font-mono"
