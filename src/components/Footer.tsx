@@ -95,10 +95,25 @@ export const Footer: React.FC = () => {
           </FadeIn>
         </div>
 
+        {/* Footer Bottom copyright */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8 pt-8 border-t border-white/5 text-[10px] sm:text-xs text-textLight/40 font-light">
           <span>&copy; {new Date().getFullYear()} Rudra Chauhan. All rights reserved.</span>
-          <span className="flex items-center gap-1">
-            Built with React, Tailwind CSS & Framer Motion
+          <span className="flex items-center gap-4">
+            <span>Built with React, Tailwind CSS & Framer Motion</span>
+            <span className="text-white/20">|</span>
+            <button 
+              onClick={() => {
+                try {
+                  localStorage.removeItem('hasSeenIntro');
+                } catch (e) {
+                  console.warn('localStorage access is blocked:', e);
+                }
+                window.location.reload();
+              }}
+              className="hover:text-[#00f0ff] hover:underline cursor-pointer transition-colors font-mono"
+            >
+              Reboot Core System
+            </button>
           </span>
         </div>
       </div>
