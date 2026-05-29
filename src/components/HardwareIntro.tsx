@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
-import { Cpu, FileCode, Award, Network, Flame, Terminal, Activity, Server, Shield, Zap } from 'lucide-react';
+import { Cpu, FileCode, Award, Network, Flame } from 'lucide-react';
 
 interface HardwareIntroProps {
   onComplete: () => void;
@@ -9,18 +9,9 @@ interface HardwareIntroProps {
 export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
   const [bootState, setBootState] = useState<'idle' | 'booting' | 'completed'>('idle');
   const [progress, setProgress] = useState(0);
-  const [consoleLogs, setConsoleLogs] = useState<string[]>([]);
-  const [systemMetrics, setSystemMetrics] = useState({
-    voltage: 3.32,
-    current: 124,
-    temp: 42.1,
-    frequency: 240,
-    noise: 0.15,
-  });
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   
   const containerRef = useRef<HTMLDivElement>(null);
-  const consoleBottomRef = useRef<HTMLDivElement>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
 
   // Mouse coordinate mapping for interactive background glow
@@ -63,20 +54,6 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
     } catch (e) {}
   };
 
-  // Setup metrics updates
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSystemMetrics(() => ({
-        voltage: +(3.3 + Math.random() * 0.04).toFixed(2),
-        current: Math.floor(121 + Math.random() * 10),
-        temp: +(41.8 + Math.random() * 1.1).toFixed(1),
-        frequency: Math.random() > 0.95 ? 245 : 240,
-        noise: +(0.1 + Math.random() * 0.06).toFixed(3),
-      }));
-    }, 600);
-    return () => clearInterval(interval);
-  }, []);
-
   // Listen for Enter/Space to initiate boot sequence
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -88,11 +65,6 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [bootState]);
-
-  // Keep terminal logs scrolled down
-  useEffect(() => {
-    consoleBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [consoleLogs]);
 
   const handleBootTrigger = () => {
     if (bootState !== 'idle') return;
@@ -138,7 +110,6 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
     bootSteps.forEach(step => {
       setTimeout(() => {
         setProgress(step.progress);
-        setConsoleLogs(prev => [...prev, step.log]);
         playBeep(450 + step.progress * 8, 0.05, 'sine', 0.02);
         
         if (step.progress === 100) {
@@ -407,245 +378,93 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
           {bootState === 'booting' && (
             <motion.div
               key="boot-chamber"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="w-full max-w-5xl flex-grow flex-1 min-h-0 flex flex-col justify-between py-4 z-30 mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, ease: 'easeInOut' }}
+              className="flex-grow flex-1 flex flex-col items-center justify-center z-30 w-full max-w-4xl mx-auto p-4 sm:p-8"
             >
-              {/* Telemetry Header */}
-              <div className="flex justify-between items-center border-b border-white/10 pb-4 mb-4">
-                <div className="flex items-center gap-3">
-                  <Activity className="w-5 h-5 text-[#B600A8] animate-pulse" />
-                  <span className="font-mono text-xs uppercase tracking-widest font-black">
-                    SYSTEM_BOOT_CHAMBER // RUDRA_CHAUHAN_CORE
+              <div className="text-center flex flex-col items-center justify-center select-none">
+                {/* Word 1: RUDRA */}
+                <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-[0.2em] text-white uppercase leading-none font-sans mb-3 flex items-center justify-center pl-[0.2em]">
+                  {"RUDRA".split("").map((char, index) => {
+                    const isRevealed = progress >= (index / 12) * 100;
+                    return (
+                      <motion.span
+                        key={`rudra-${index}`}
+                        initial={{ opacity: 0, y: 15, filter: 'blur(8px)' }}
+                        animate={isRevealed 
+                          ? { 
+                              opacity: 1, 
+                              y: 0, 
+                              filter: 'blur(0px)',
+                              textShadow: '0 0 20px rgba(255,255,255,0.4), 0 0 40px rgba(255,255,255,0.1)' 
+                            } 
+                          : { opacity: 0 }
+                        }
+                        transition={{ type: 'spring', stiffness: 100, damping: 15 }}
+                        className="inline-block"
+                      >
+                        {char}
+                      </motion.span>
+                    );
+                  })}
+                </h2>
+
+                {/* Word 2: CHAUHAN */}
+                <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-[0.2em] uppercase leading-none font-sans mb-12 flex items-center justify-center pl-[0.2em]">
+                  {"CHAUHAN".split("").map((char, index) => {
+                    const charIdx = index + 5;
+                    const isRevealed = progress >= (charIdx / 12) * 100;
+                    return (
+                      <motion.span
+                        key={`chauhan-${index}`}
+                        initial={{ opacity: 0, y: 15, filter: 'blur(8px)' }}
+                        animate={isRevealed 
+                          ? { 
+                              opacity: 1, 
+                              y: 0, 
+                              filter: 'blur(0px)',
+                            } 
+                          : { opacity: 0 }
+                        }
+                        transition={{ type: 'spring', stiffness: 100, damping: 15 }}
+                        className="inline-block bg-gradient-to-r from-[#B600A8] via-[#7621B0] to-[#BE4C00] bg-clip-text text-transparent"
+                        style={isRevealed ? {
+                          filter: 'drop-shadow(0 0 20px rgba(182,0,168,0.25))'
+                        } : {}}
+                      >
+                        {char}
+                      </motion.span>
+                    );
+                  })}
+                </h2>
+
+                {/* Progress Indicators */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                  className="flex flex-col items-center gap-3 font-mono text-xs tracking-widest text-[#D7E2EA]/40 w-64"
+                >
+                  <span className="uppercase text-[10px] sm:text-xs">
+                    Initializing Core System
                   </span>
-                </div>
-                <div className="flex items-center gap-6 font-mono text-xs text-[#D7E2EA]/60">
-                  <div className="flex items-center gap-1.5">
-                    <Flame className="w-4 h-4 text-[#BE4C00]" />
-                    <span>SYS_OVERCLOCK: ENGAGED</span>
-                  </div>
-                  <span className="text-[#B600A8] font-bold">{progress}%</span>
-                </div>
-              </div>
-
-              {/* Core Workbench split section */}
-              <div className="flex-grow grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden max-h-[68vh]">
-                
-                {/* LEFT SIDE: COMMAND DIAGNOSTIC LOG FEED */}
-                <div className="lg:col-span-5 flex flex-col justify-between border border-white/10 bg-[#0C0C0C]/65 backdrop-blur-xl rounded-2xl p-5 overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
-                  <div className="flex items-center justify-between border-b border-white/5 pb-2.5 mb-2.5">
-                    <div className="flex items-center gap-2">
-                      <Terminal className="w-4 h-4 text-[#B600A8]" />
-                      <span className="text-xs uppercase font-bold tracking-widest text-[#D7E2EA]/85 font-mono">DIAGNOSTIC_FEED</span>
-                    </div>
-                    <span className="text-[9px] font-mono text-[#D7E2EA]/30">BAUD_115200</span>
-                  </div>
-
-                  {/* LOG WRAPPER */}
-                  <div className="flex-grow overflow-y-auto text-[10px] sm:text-xs leading-5 flex flex-col gap-1.5 pr-2 font-mono scrollbar-thin">
-                    {consoleLogs.map((log, index) => {
-                      const isOk = log.startsWith('[OK]');
-                      const isSys = log.startsWith('⚡') || log.startsWith('🤖');
-                      
-                      return (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.1 }}
-                          className={`pl-2.5 border-l-2 py-0.5 rounded-r transition-colors ${
-                            isOk 
-                              ? 'border-green-500/30 text-[#D7E2EA]/90 hover:bg-green-500/[0.02]' 
-                              : isSys 
-                                ? 'border-[#B600A8]/30 text-[#D7E2EA] font-semibold'
-                                : 'border-[#7621B0]/20 text-[#D7E2EA]/80 hover:bg-white/[0.01]'
-                          }`}
-                        >
-                          <span className={`${isOk ? 'text-green-400' : 'text-[#B600A8]'} mr-1.5 select-none`}>
-                            {isOk ? '✔' : '&gt;'}
-                          </span>
-                          {log}
-                        </motion.div>
-                      );
-                    })}
-                    <div ref={consoleBottomRef} />
-                  </div>
-
-                  <div className="border-t border-white/5 pt-2.5 mt-2.5 text-[9px] text-[#D7E2EA]/30 flex justify-between font-mono">
-                    <span>BUFFER_LINE_LIMIT: 2048</span>
-                    <span className="animate-pulse flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 bg-green-500 rounded-full" /> COMPILE_RUNNING
-                    </span>
-                  </div>
-                </div>
-
-                {/* CENTER COMPONENT: MICROCHIP BLUEPRINT SCANNER */}
-                <div className="lg:col-span-4 flex flex-col items-center justify-center border border-white/10 bg-[#0C0C0C]/65 backdrop-blur-xl rounded-2xl p-6 relative overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
                   
-                  {/* Glowing calibration vector lines */}
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(182,0,168,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(182,0,168,0.01)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
-                  
-                  {/* Moving scanning radar bar */}
-                  <motion.div
-                    animate={{ y: [-150, 150] }}
-                    transition={{ repeat: Infinity, duration: 2.2, ease: 'linear' }}
-                    className="absolute inset-x-0 w-full h-[3px] bg-gradient-to-r from-transparent via-[#B600A8] to-transparent shadow-[0_0_12px_#B600A8] pointer-events-none z-10"
-                  />
-
-                  {/* SVG detailed microchip blueprint blueprint */}
-                  <div className="w-full aspect-square max-w-[200px] relative flex items-center justify-center">
+                  {/* High-tech minimalist loader bar */}
+                  <div className="w-full h-[2px] bg-white/5 border border-white/5 rounded-full overflow-hidden relative p-[1px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.5)]">
                     <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 4.5, ease: 'linear' }}
-                      className="w-full h-full text-white/80"
-                    >
-                      <svg viewBox="0 0 100 100" className="w-full h-full text-white">
-                        {/* Silicon Die Layer */}
-                        <rect x="20" y="20" width="60" height="60" rx="12" fill="none" stroke="url(#bootLoaderGlow)" strokeWidth="2" className="opacity-95" />
-                        <rect x="32" y="32" width="36" height="36" rx="8" fill="none" stroke="#7621B0" strokeWidth="1.5" className="opacity-70" strokeDasharray="3 2" />
-                        <circle cx="50" cy="50" r="10" fill="none" stroke="#B600A8" strokeWidth="1.5" className="opacity-90" />
-                        
-                        {/* Motherboard trace extensions */}
-                        <line x1="8" y1="35" x2="20" y2="35" stroke="#B600A8" strokeWidth="1.5" />
-                        <line x1="8" y1="50" x2="20" y2="50" stroke="#7621B0" strokeWidth="1.5" />
-                        <line x1="8" y1="65" x2="20" y2="65" stroke="#BE4C00" strokeWidth="1.5" />
-                        <line x1="80" y1="35" x2="92" y2="35" stroke="#7621B0" strokeWidth="1.5" />
-                        <line x1="80" y1="50" x2="92" y2="50" stroke="#BE4C00" strokeWidth="1.5" />
-                        <line x1="80" y1="65" x2="92" y2="65" stroke="#B600A8" strokeWidth="1.5" />
-                        <line x1="35" y1="8" x2="35" y2="20" stroke="#BE4C00" strokeWidth="1.5" />
-                        <line x1="50" y1="8" x2="50" y2="20" stroke="#B600A8" strokeWidth="1.5" />
-                        <line x1="65" y1="8" x2="65" y2="20" stroke="#7621B0" strokeWidth="1.5" />
-                        <line x1="35" y1="80" x2="35" y2="92" stroke="#B600A8" strokeWidth="1.5" />
-                        <line x1="50" y1="80" x2="50" y2="92" stroke="#7621B0" strokeWidth="1.5" />
-                        <line x1="65" y1="80" x2="65" y2="92" stroke="#BE4C00" strokeWidth="1.5" />
-                      </svg>
-                    </motion.div>
-                    
-                    {/* Pulsing neon core status light */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none font-mono">
-                      <div className="w-12 h-12 rounded-full border border-[#B600A8]/30 flex flex-col items-center justify-center bg-black/80 shadow-[0_0_20px_rgba(182,0,168,0.2)]">
-                        <span className="text-[10px] font-black text-white tracking-widest leading-none">R</span>
-                        <span className="text-[8px] font-bold text-[#BE4C00] tracking-widest leading-none mt-0.5">C</span>
-                      </div>
-                      <div className="w-3.5 h-3.5 bg-[#B600A8]/20 rounded-full absolute -z-10 animate-ping" />
-                    </div>
+                      style={{ width: `${progress}%` }}
+                      className="h-full bg-gradient-to-r from-[#B600A8] via-[#7621B0] to-[#BE4C00] rounded-full shadow-[0_0_10px_rgba(182,0,168,0.4)]"
+                    />
                   </div>
-
-                  <div className="mt-6 text-center w-full">
-                    <div className="text-sm font-black tracking-widest font-mono text-white uppercase mb-1">
-                      RUDRA CHAUHAN
-                    </div>
-                    <h4 className="text-[10px] uppercase tracking-widest font-black font-mono text-[#D7E2EA]/60 flex items-center gap-1.5 justify-center">
-                      <Shield className="w-3.5 h-3.5 text-[#7621B0]" /> SECURE_BOOTLOADER
-                    </h4>
-                    <p className="text-[9px] text-[#D7E2EA]/40 font-mono mt-1">VOLTS: STABLE // TEMP: 42.1°C</p>
-                  </div>
-                </div>
-
-                {/* RIGHT SIDE: ADVANCED TELEMETRY CHARTS & OSCILLOSCOPE */}
-                <div className="lg:col-span-3 flex flex-col gap-4 overflow-hidden">
                   
-                  {/* DIGITAL DIALS CONTAINER */}
-                  <div className="border border-white/10 bg-[#0C0C0C]/65 backdrop-blur-xl rounded-2xl p-4 flex flex-col gap-3 shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
-                    <div className="flex items-center gap-2 border-b border-white/5 pb-2">
-                      <Server className="w-4 h-4 text-[#BE4C00]" />
-                      <span className="text-xs uppercase font-bold tracking-widest text-[#D7E2EA]/85 font-mono">TELEMETRY_LOG</span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2.5 text-center text-xs font-mono">
-                      <div className="bg-white/[0.02] border border-white/5 rounded-xl p-2.5 flex flex-col justify-center">
-                        <span className="text-[8px] text-[#D7E2EA]/40 uppercase tracking-wider">CORE_VOLTS</span>
-                        <span className="font-bold text-[#BE4C00] text-xs sm:text-sm mt-0.5">{systemMetrics.voltage} V</span>
-                      </div>
-                      <div className="bg-white/[0.02] border border-white/5 rounded-xl p-2.5 flex flex-col justify-center">
-                        <span className="text-[8px] text-[#D7E2EA]/40 uppercase tracking-wider">LOAD_CURRENT</span>
-                        <span className="font-bold text-[#7621B0] text-xs sm:text-sm mt-0.5">{systemMetrics.current} mA</span>
-                      </div>
-                      <div className="bg-white/[0.02] border border-white/5 rounded-xl p-2.5 flex flex-col justify-center">
-                        <span className="text-[8px] text-[#D7E2EA]/40 uppercase tracking-wider">CLOCK_FREQ</span>
-                        <span className="font-bold text-textLight text-xs sm:text-sm mt-0.5">{systemMetrics.frequency} MHz</span>
-                      </div>
-                      <div className="bg-white/[0.02] border border-white/5 rounded-xl p-2.5 flex flex-col justify-center">
-                        <span className="text-[8px] text-[#D7E2EA]/40 uppercase tracking-wider">CORE_TEMP</span>
-                        <span className="font-bold text-[#B600A8] text-xs sm:text-sm mt-0.5">{systemMetrics.temp} °C</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* WAVEFORM ANALYZER */}
-                  <div className="border border-white/10 bg-[#0C0C0C]/65 backdrop-blur-xl rounded-2xl p-4 flex-grow flex flex-col justify-between shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
-                    <div className="flex items-center gap-2 border-b border-white/5 pb-2">
-                      <Zap className="w-4 h-4 text-[#B600A8]" />
-                      <span className="text-xs uppercase font-bold tracking-widest text-[#D7E2EA]/85 font-mono">WAVEFORM_ANALYZER</span>
-                    </div>
-
-                    {/* Procedural wave SVG drawing */}
-                    <div className="border border-white/5 rounded-xl bg-black/60 flex items-center justify-center h-28 relative overflow-hidden my-3">
-                      <svg viewBox="0 0 100 40" className="w-full h-full text-[#B600A8] opacity-75">
-                        <motion.path
-                          d={`M 0,20 Q 25,${10 + Math.sin(progress) * 8} 50,20 T 100,20`}
-                          fill="none"
-                          stroke="url(#waveGradient)"
-                          strokeWidth="2"
-                          animate={{ d: [
-                            `M 0,20 Q 25,${10 + Math.sin(progress) * 8} 50,20 T 100,20`,
-                            `M 0,20 Q 25,${30 - Math.sin(progress) * 8} 50,20 T 100,20`,
-                            `M 0,20 Q 25,${10 + Math.sin(progress) * 8} 50,20 T 100,20`
-                          ] }}
-                          transition={{ repeat: Infinity, duration: 0.8, ease: 'linear' }}
-                        />
-                      </svg>
-                    </div>
-
-                    <div className="text-[9px] font-mono text-[#D7E2EA]/30 flex justify-between">
-                      <span>NOISE: {systemMetrics.noise} mV</span>
-                      <span>FREQ: STABLE</span>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              {/* BOTTOM LOAD CONTROLLER FOR CHIP COMPILING */}
-              <div className="w-full flex flex-col gap-2.5 mt-4 font-mono">
-                <div className="flex justify-between items-center text-xs">
-                  <span className="text-[#D7E2EA]/45 uppercase tracking-widest text-[9px] sm:text-xs">
-                    COMPILING WORKBENCH MODULES... DO NOT DISCONNECT POWER
+                  <span className="font-bold text-[#B600A8] text-sm mt-1">
+                    {progress}%
                   </span>
-                  <span className="font-bold text-[#B600A8]">{progress}%</span>
-                </div>
-
-                {/* Glowing load track bar */}
-                <div className="w-full h-3 border border-white/10 rounded-full p-[2px] bg-black/60 overflow-hidden relative shadow-[inset_0_1px_5px_rgba(0,0,0,0.5)]">
-                  <motion.div
-                    initial={{ width: '0%' }}
-                    animate={{ width: `${progress}%` }}
-                    transition={{ ease: 'easeInOut', duration: 0.1 }}
-                    className="h-full bg-gradient-to-r from-[#B600A8] via-[#7621B0] to-[#BE4C00] rounded-full relative shadow-[0_0_15px_rgba(182,0,168,0.5)]"
-                  >
-                    <div className="absolute top-0 right-0 w-3 h-full bg-white rounded-full blur-[1px] animate-pulse" />
-                  </motion.div>
-                </div>
+                </motion.div>
               </div>
-              
-              <defs>
-                <linearGradient id="bootLoaderGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#B600A8" />
-                  <stop offset="50%" stopColor="#7621B0" />
-                  <stop offset="100%" stopColor="#BE4C00" />
-                </linearGradient>
-                <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#7621B0" />
-                  <stop offset="50%" stopColor="#B600A8" />
-                  <stop offset="100%" stopColor="#BE4C00" />
-                </linearGradient>
-              </defs>
             </motion.div>
-          )}
-          {bootState === 'booting' && (
-            <div className="w-full h-4 z-10 opacity-0 pointer-events-none" />
           )}
 
           {/* BOTTOM STATUS BAR (ONLY SHOWS IN IDLE SPLASH MODE) */}
