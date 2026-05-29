@@ -11,7 +11,11 @@ import useSmoothScroll from './hooks/useSmoothScroll';
 
 function App() {
   const [showIntro, setShowIntro] = useState(() => {
-    return localStorage.getItem('hasSeenIntro') !== 'true';
+    try {
+      return localStorage.getItem('hasSeenIntro') !== 'true';
+    } catch (e) {
+      return true;
+    }
   });
 
   // Initialize smooth scrolling only after the intro is complete
@@ -19,12 +23,16 @@ function App() {
 
   return (
     <>
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {showIntro ? (
           <HardwareIntro 
             key="intro"
             onComplete={() => {
-              localStorage.setItem('hasSeenIntro', 'true');
+              try {
+                localStorage.setItem('hasSeenIntro', 'true');
+              } catch (e) {
+                console.warn('localStorage access is blocked:', e);
+              }
               setShowIntro(false);
             }} 
           />
