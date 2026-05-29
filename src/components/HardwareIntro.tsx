@@ -136,7 +136,7 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: 'easeInOut' }}
-          className="fixed inset-0 z-[9999] bg-[#070707] overflow-hidden flex flex-col justify-between p-4 sm:p-8 text-[#D7E2EA] select-none font-sans"
+          className={`fixed inset-0 z-[9999] bg-[#070707] overflow-hidden flex flex-col p-4 sm:p-8 text-[#D7E2EA] select-none font-sans ${bootState === 'booting' ? 'justify-center items-center' : 'justify-between'}`}
         >
           {/* Subtle grid pattern background */}
           <div className="absolute inset-0 bg-[radial-gradient(rgba(215,226,234,0.015)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none z-0" />
@@ -400,7 +400,7 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
                               filter: 'blur(0px)',
                               textShadow: '0 0 20px rgba(255,255,255,0.4), 0 0 40px rgba(255,255,255,0.1)' 
                             } 
-                          : { opacity: 0 }
+                          : { opacity: 0, y: 15, filter: 'blur(8px)' }
                         }
                         transition={{ type: 'spring', stiffness: 100, damping: 15 }}
                         className="inline-block"
@@ -426,7 +426,7 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
                               y: 0, 
                               filter: 'blur(0px)',
                             } 
-                          : { opacity: 0 }
+                          : { opacity: 0, y: 15, filter: 'blur(8px)' }
                         }
                         transition={{ type: 'spring', stiffness: 100, damping: 15 }}
                         className="inline-block bg-gradient-to-r from-[#B600A8] via-[#7621B0] to-[#BE4C00] bg-clip-text text-transparent"
