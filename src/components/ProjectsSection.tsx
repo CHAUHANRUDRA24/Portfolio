@@ -156,6 +156,18 @@ export const ProjectsSection: React.FC = () => {
       border: 'hover:border-slate-500/30',
       glow: 'rgba(100,116,139,0.15)',
     },
+    purple: {
+      badge: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+      text: 'text-purple-400',
+      border: 'hover:border-purple-500/30',
+      glow: 'rgba(168,85,247,0.15)',
+    },
+    cyan: {
+      badge: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+      text: 'text-cyan-400',
+      border: 'hover:border-cyan-500/30',
+      glow: 'rgba(6,182,212,0.15)',
+    },
   };
 
   const getAccentIcon = (accent: string) => {
@@ -167,6 +179,8 @@ export const ProjectsSection: React.FC = () => {
       case 'indigo':
       case 'orange': return Cpu;
       case 'pink': return Award;
+      case 'purple': return Award;
+      case 'cyan': return ShieldAlert;
       default: return BookOpen;
     }
   };
