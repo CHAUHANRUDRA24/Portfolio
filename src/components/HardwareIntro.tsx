@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { Cpu, FileCode, Award, Network, Flame } from 'lucide-react';
 
 interface HardwareIntroProps {
@@ -80,16 +80,14 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
   const cardTransition = { type: 'spring', stiffness: 90, damping: 16 } as const;
 
   return (
-    <AnimatePresence>
-      {bootState !== 'completed' && (
-        <motion.div
-          ref={containerRef}
-          onMouseMove={handleMouseMove}
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: 'easeInOut' }}
-          className={`fixed inset-0 z-[9999] bg-[#070707] overflow-hidden flex flex-col p-4 sm:p-8 text-[#D7E2EA] select-none font-sans ${bootState === 'booting' ? 'justify-center items-center' : 'justify-between'}`}
-        >
+    <motion.div
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6, ease: 'easeInOut' }}
+      className={`fixed inset-0 z-[9999] bg-[#070707] overflow-hidden flex flex-col p-4 sm:p-8 text-[#D7E2EA] select-none font-sans ${bootState === 'booting' ? 'justify-center items-center' : 'justify-between'}`}
+    >
           {/* Subtle grid pattern background */}
           <div className="absolute inset-0 bg-[radial-gradient(rgba(215,226,234,0.015)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none z-0" />
 
@@ -452,9 +450,7 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
             </div>
           )}
 
-        </motion.div>
-      )}
-    </AnimatePresence>
+    </motion.div>
   );
 };
 export default HardwareIntro;
