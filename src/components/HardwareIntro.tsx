@@ -84,6 +84,7 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       initial={{ opacity: 1 }}
+      animate={bootState === 'completed' ? { opacity: 0 } : { opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6, ease: 'easeInOut' }}
       className={`fixed inset-0 z-[9999] bg-[#070707] overflow-hidden flex flex-col p-4 sm:p-8 text-[#D7E2EA] select-none font-sans ${bootState === 'booting' ? 'justify-center items-center' : 'justify-between'}`}

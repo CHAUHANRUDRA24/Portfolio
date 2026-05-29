@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import HeroSection from './components/HeroSection';
 import MarqueeSection from './components/MarqueeSection';
 import AboutSection from './components/AboutSection';
@@ -23,36 +22,27 @@ function App() {
 
   return (
     <>
-      <AnimatePresence>
-        {showIntro ? (
-          <HardwareIntro 
-            key="intro"
-            onComplete={() => {
-              try {
-                localStorage.setItem('hasSeenIntro', 'true');
-              } catch (e) {
-                console.warn('localStorage access is blocked:', e);
-              }
-              setShowIntro(false);
-            }} 
-          />
-        ) : (
-          <motion.div 
-            key="portfolio"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full overflow-x-clip bg-darkBg"
-          >
-            <HeroSection />
-            <MarqueeSection />
-            <AboutSection />
-            <ServicesSection />
-            <ProjectsSection />
-            <Footer />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {showIntro ? (
+        <HardwareIntro 
+          onComplete={() => {
+            try {
+              localStorage.setItem('hasSeenIntro', 'true');
+            } catch (e) {
+              console.warn('localStorage access is blocked:', e);
+            }
+            setShowIntro(false);
+          }} 
+        />
+      ) : (
+        <div className="relative w-full overflow-x-clip bg-darkBg">
+          <HeroSection />
+          <MarqueeSection />
+          <AboutSection />
+          <ServicesSection />
+          <ProjectsSection />
+          <Footer />
+        </div>
+      )}
     </>
   );
 }
