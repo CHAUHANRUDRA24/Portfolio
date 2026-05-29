@@ -11,7 +11,7 @@ import useSmoothScroll from './hooks/useSmoothScroll';
 
 function App() {
   const [showIntro, setShowIntro] = useState(() => {
-    return sessionStorage.getItem('hasSeenIntro') !== 'true';
+    return localStorage.getItem('hasSeenIntro') !== 'true';
   });
 
   // Initialize smooth scrolling only after the intro is complete
@@ -24,7 +24,7 @@ function App() {
           <HardwareIntro 
             key="intro"
             onComplete={() => {
-              sessionStorage.setItem('hasSeenIntro', 'true');
+              localStorage.setItem('hasSeenIntro', 'true');
               setShowIntro(false);
             }} 
           />
