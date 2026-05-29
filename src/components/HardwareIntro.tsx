@@ -121,18 +121,18 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
     // Bootloader sequence log steps
     const bootSteps = [
       { progress: 5, log: '⚡ BOOTLOADER V2.6.5 INITIALIZED // INITIATING PORTFOLIO BOOT...' },
-      { progress: 12, log: '🔌 ENERGIZING SYSTEM BOARD TRACES... POWER REGULATOR (3.3V) STABLE' },
-      { progress: 20, log: '⚙️ CALIBRATING CPU FREQUENCY INTERFACES... CLOCK MULTIPLIER ACTIVE' },
-      { progress: 28, log: '📁 ASSEMBLING PROJECTS COMPONENT MODULE (projectsData.bin)... VERIFIED' },
-      { progress: 36, log: '🔥 ENGAGING CO-PROCESSORS & THERMAL DEFENSES... CURRENT DRAW IN TOLERANCE' },
-      { progress: 45, log: '🏆 DEPLOYING WALL OF FAME AWARDS CONTROLLER (awardsData)... SYNCHRONIZED' },
-      { progress: 54, log: '📜 OPENING SYSTEM CERTIFICATE KEYSTORE VAULT (certificatesData)... SECURITY PASSED' },
-      { progress: 62, log: '🔒 DECRYPTING ORACLE OCI & DEEPMIND CREDENTIAL BADGES... OK' },
-      { progress: 70, log: '🛰️ MAPPING GPIO DATA PORTS FOR PORTFOLIO HUD INTERFACES... ACTIVE' },
-      { progress: 78, log: '⚡ STABILIZING SMOOTH-SCROLLING LENIS HAPTIC MOTOR ENGINE... OK' },
-      { progress: 85, log: '💎 PRE-COMPILING GRAPHICS AND MOTION VALUE SHADER LAYER...' },
-      { progress: 92, log: '🔗 BRIDGING DYNAMIC TELEMETRY INTERACTION GRIDS...' },
-      { progress: 100, log: '🚀 ALL NODES ENGAGED // SYSTEMS OVERCLOCK STABILIZED. PORTAL LAUNCH READY.' }
+      { progress: 12, log: '👤 IDENTIFYING USER SIGNATURE: RUDRA CHAUHAN... VERIFIED' },
+      { progress: 20, log: '🔌 ENERGIZING SYSTEM BOARD TRACES... POWER REGULATOR (3.3V) STABLE' },
+      { progress: 28, log: '⚙️ CALIBRATING CPU FREQUENCY INTERFACES... CLOCK MULTIPLIER ACTIVE' },
+      { progress: 36, log: '📁 ASSEMBLING PROJECTS COMPONENT MODULE (projectsData.bin)... VERIFIED' },
+      { progress: 45, log: '🔥 ENGAGING CO-PROCESSORS FOR [RUDRA] CORE SYSTEM... CURRENT DRAW IN TOLERANCE' },
+      { progress: 54, log: '🏆 DEPLOYING WALL OF FAME AWARDS CONTROLLER (awardsData)... SYNCHRONIZED' },
+      { progress: 62, log: '📜 OPENING SYSTEM CERTIFICATE KEYSTORE VAULT (certificatesData)... SECURITY PASSED' },
+      { progress: 70, log: '🔒 DECRYPTING CREDENTIAL BADGES FOR RUDRA CHAUHAN... OK' },
+      { progress: 78, log: '🛰️ MAPPING GPIO DATA PORTS FOR PORTFOLIO HUD INTERFACES... ACTIVE' },
+      { progress: 85, log: '⚡ STABILIZING SMOOTH-SCROLLING LENIS HAPTIC MOTOR ENGINE... OK' },
+      { progress: 92, log: '🔗 BRIDGING DYNAMIC TELEMETRY INTERACTION GRIDS... SUCCESS' },
+      { progress: 100, log: '🚀 ALL NODES ENGAGED // RUDRA CHAUHAN CORE STABILIZED. PORTAL LAUNCH READY.' }
     ];
 
     bootSteps.forEach(step => {
@@ -418,7 +418,7 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
                 <div className="flex items-center gap-3">
                   <Activity className="w-5 h-5 text-[#B600A8] animate-pulse" />
                   <span className="font-mono text-xs uppercase tracking-widest font-black">
-                    SYSTEM_BOOT_CHAMBER // CALIBRATION_ACTIVE
+                    SYSTEM_BOOT_CHAMBER // RUDRA_CHAUHAN_CORE
                   </span>
                 </div>
                 <div className="flex items-center gap-6 font-mono text-xs text-[#D7E2EA]/60">
@@ -524,14 +524,21 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
                     </motion.div>
                     
                     {/* Pulsing neon core status light */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div className="w-5 h-5 bg-[#B600A8] rounded-full shadow-[0_0_20px_#B600A8] animate-ping" />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none font-mono">
+                      <div className="w-12 h-12 rounded-full border border-[#B600A8]/30 flex flex-col items-center justify-center bg-black/80 shadow-[0_0_20px_rgba(182,0,168,0.2)]">
+                        <span className="text-[10px] font-black text-white tracking-widest leading-none">R</span>
+                        <span className="text-[8px] font-bold text-[#BE4C00] tracking-widest leading-none mt-0.5">C</span>
+                      </div>
+                      <div className="w-3.5 h-3.5 bg-[#B600A8]/20 rounded-full absolute -z-10 animate-ping" />
                     </div>
                   </div>
 
-                  <div className="mt-6 text-center">
-                    <h4 className="text-xs uppercase tracking-widest font-black font-mono text-[#D7E2EA]/90 flex items-center gap-1.5 justify-center">
-                      <Shield className="w-4 h-4 text-[#7621B0]" /> SECURE_BOOTLOADER
+                  <div className="mt-6 text-center w-full">
+                    <div className="text-sm font-black tracking-widest font-mono text-white uppercase mb-1">
+                      RUDRA CHAUHAN
+                    </div>
+                    <h4 className="text-[10px] uppercase tracking-widest font-black font-mono text-[#D7E2EA]/60 flex items-center gap-1.5 justify-center">
+                      <Shield className="w-3.5 h-3.5 text-[#7621B0]" /> SECURE_BOOTLOADER
                     </h4>
                     <p className="text-[9px] text-[#D7E2EA]/40 font-mono mt-1">VOLTS: STABLE // TEMP: 42.1°C</p>
                   </div>
