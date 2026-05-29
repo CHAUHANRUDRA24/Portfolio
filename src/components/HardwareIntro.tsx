@@ -12,7 +12,6 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   
   const containerRef = useRef<HTMLDivElement>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
 
   // Mouse coordinate mapping for interactive background glow
   const mouseX = useMotionValue(0);
@@ -27,32 +26,7 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
     mouseY.set(e.clientY - top);
   };
 
-  // Procedural audio generation using Web Audio API
-  const playBeep = (freq: number, duration: number, type: OscillatorType = 'sine', volume = 0.04) => {
-    try {
-      if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-      }
-      const ctx = audioContextRef.current;
-      if (ctx.state === 'suspended') {
-        ctx.resume();
-      }
-      const osc = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-      
-      osc.type = type;
-      osc.frequency.value = freq;
-      
-      gainNode.gain.setValueAtTime(volume, ctx.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
-      
-      osc.connect(gainNode);
-      gainNode.connect(ctx.destination);
-      
-      osc.start();
-      osc.stop(ctx.currentTime + duration);
-    } catch (e) {}
-  };
+
 
   // Listen for Enter/Space to initiate boot sequence
   useEffect(() => {
@@ -69,26 +43,6 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
   const handleBootTrigger = () => {
     if (bootState !== 'idle') return;
     setBootState('booting');
-    playBeep(780, 0.2, 'triangle', 0.05);
-
-    // Audio Power up sweep
-    try {
-      if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-      }
-      const ctx = audioContextRef.current;
-      const osc = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(80, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(1400, ctx.currentTime + 1.8);
-      gainNode.gain.setValueAtTime(0.04, ctx.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 2.0);
-      osc.connect(gainNode);
-      gainNode.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 2.0);
-    } catch (e) {}
 
     // Bootloader sequence log steps
     const bootSteps = [
@@ -110,11 +64,9 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
     bootSteps.forEach(step => {
       setTimeout(() => {
         setProgress(step.progress);
-        playBeep(450 + step.progress * 8, 0.05, 'sine', 0.02);
         
         if (step.progress === 100) {
           setTimeout(() => {
-            playBeep(1200, 0.4, 'sine', 0.08);
             setBootState('completed');
             setTimeout(() => {
               onComplete();
@@ -445,23 +397,46 @@ export const HardwareIntro: React.FC<HardwareIntroProps> = ({ onComplete }) => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.5 }}
-                  className="flex flex-col items-center gap-3 font-mono text-xs tracking-widest text-[#D7E2EA]/40 w-64"
+                  className="flex flex-col items-center gap-3 w-72 sm:w-80"
                 >
-                  <span className="uppercase text-[10px] sm:text-xs">
-                    Initializing Core System
-                  </span>
-                  
-                  {/* High-tech minimalist loader bar */}
-                  <div className="w-full h-[2px] bg-white/5 border border-white/5 rounded-full overflow-hidden relative p-[1px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.5)]">
-                    <motion.div
-                      style={{ width: `${progress}%` }}
-                      className="h-full bg-gradient-to-r from-[#B600A8] via-[#7621B0] to-[#BE4C00] rounded-full shadow-[0_0_10px_rgba(182,0,168,0.4)]"
-                    />
+                  <style>{`
+                    @keyframes shimmer-loading {
+                      0% { background-position: 0 0; }
+                      100% { background-position: 20px 0; }
+                    }
+                    .shimmer-bar {
+                      background-size: 20px 20px;
+                      animation: shimmer-loading 0.8s linear infinite;
+                    }
+                  `}</style>
+
+                  <div className="flex justify-between items-center text-[10px] font-mono text-[#D7E2EA]/45 w-full uppercase tracking-[0.2em] mb-0.5">
+                    <span>Initializing System Core</span>
+                    <span className="font-bold text-[#B600A8]">{progress}%</span>
                   </div>
                   
-                  <span className="font-bold text-[#B600A8] text-sm mt-1">
-                    {progress}%
-                  </span>
+                  {/* Redesigned Progress Bar */}
+                  <div className="h-3 w-full bg-black/60 border border-white/10 rounded-sm relative overflow-hidden p-[2px] flex items-center shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                    {/* Telemetry Segment Lines in background */}
+                    <div className="absolute inset-0 flex justify-between pointer-events-none px-2 opacity-15">
+                      {[...Array(8)].map((_, i) => (
+                        <div key={i} className="w-[1px] h-full bg-white" />
+                      ))}
+                    </div>
+
+                    {/* Progress Bar Fill */}
+                    <motion.div
+                      style={{ width: `${progress}%` }}
+                      className="h-full bg-gradient-to-r from-[#B600A8] via-[#7621B0] to-[#BE4C00] rounded-sm relative shadow-[0_0_10px_rgba(182,0,168,0.5)] flex items-center"
+                      transition={{ ease: 'easeOut', duration: 0.1 }}
+                    >
+                      {/* Running Shimmer Highlights */}
+                      <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,0.2)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.2)_50%,rgba(255,255,255,0.2)_75%,transparent_75%,transparent)] shimmer-bar opacity-30" />
+                      
+                      {/* Laser tip glow */}
+                      <div className="absolute top-0 right-0 bottom-0 w-[4px] bg-white rounded-r-sm shadow-[0_0_8px_#fff,0_0_15px_#B600A8]" />
+                    </motion.div>
+                  </div>
                 </motion.div>
               </div>
             </motion.div>
