@@ -6,7 +6,7 @@ export const Footer: React.FC = () => {
   return (
     <footer 
       id="contact" 
-      className="bg-darkBg text-textLight px-6 md:px-10 pt-20 pb-10 border-t border-white/5 relative z-30 overflow-hidden"
+      className="bg-darkBg text-textLight px-6 md:px-10 pt-20 pb-10 border-t border-cardBorder/10 relative z-30 overflow-hidden transition-colors duration-300"
     >
       <div className="max-w-5xl mx-auto flex flex-col gap-12 sm:gap-16">
         
@@ -23,25 +23,25 @@ export const Footer: React.FC = () => {
           
           <FadeIn delay={0.15} y={30}>
             <a 
-              href="mailto:shani.rudra024@gmail.com" 
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/10 hover:border-white/30 bg-white/[0.02] hover:bg-white/[0.06] transition-all duration-300 group"
+              href="mailto:rudrachauhan2475@gmail.com" 
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-cardBorder/15 hover:border-cardBorder/30 bg-cardBorder/[0.02] hover:bg-cardBorder/[0.06] transition-all duration-300 group"
             >
               <Mail className="w-5 h-5 text-[#B600A8] group-hover:scale-110 transition-transform" />
               <span className="font-medium uppercase tracking-wider text-sm sm:text-base">
-                shani.rudra024@gmail.com
+                rudrachauhan2475@gmail.com
               </span>
             </a>
           </FadeIn>
         </div>
 
         {/* Divider */}
-        <div className="w-full h-[1px] bg-white/10" />
+        <div className="w-full h-[1px] bg-cardBorder/10" />
 
         {/* Contact Info & Social Links Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
           {/* Info Column 1 */}
           <FadeIn delay={0.1} y={20} className="flex flex-col gap-4">
-            <h4 className="font-bold text-xs uppercase tracking-widest text-[#D7E2EA]/40">
+            <h4 className="font-bold text-xs uppercase tracking-widest text-textLight/40">
               Details
             </h4>
             <ul className="flex flex-col gap-3 font-light text-sm sm:text-base text-textLight/70">
@@ -58,7 +58,7 @@ export const Footer: React.FC = () => {
 
           {/* Socials Column 2 */}
           <FadeIn delay={0.2} y={20} className="flex flex-col gap-4">
-            <h4 className="font-bold text-xs uppercase tracking-widest text-[#D7E2EA]/40">
+            <h4 className="font-bold text-xs uppercase tracking-widest text-textLight/40">
               Profiles
             </h4>
             <div className="flex gap-4">
@@ -66,7 +66,7 @@ export const Footer: React.FC = () => {
                 href="https://github.com/CHAUHANRUDRA24" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.02] hover:bg-white/[0.08] hover:border-white/30 text-textLight hover:text-[#B600A8] transition-all duration-300"
+                className="w-12 h-12 rounded-full border border-cardBorder/15 flex items-center justify-center bg-cardBorder/[0.02] hover:bg-cardBorder/[0.08] hover:border-cardBorder/30 text-textLight hover:text-[#B600A8] transition-all duration-300"
                 aria-label="GitHub Profile"
               >
                 <Github className="w-5 h-5" />
@@ -75,7 +75,7 @@ export const Footer: React.FC = () => {
                 href="https://linkedin.com/in/Chauhan-Rudra" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.02] hover:bg-white/[0.08] hover:border-white/30 text-textLight hover:text-[#7621B0] transition-all duration-300"
+                className="w-12 h-12 rounded-full border border-cardBorder/15 flex items-center justify-center bg-cardBorder/[0.02] hover:bg-cardBorder/[0.08] hover:border-cardBorder/30 text-textLight hover:text-[#7621B0] transition-all duration-300"
                 aria-label="LinkedIn Profile"
               >
                 <Linkedin className="w-5 h-5" />
@@ -85,22 +85,22 @@ export const Footer: React.FC = () => {
 
           {/* Education Column 3 */}
           <FadeIn delay={0.3} y={20} className="flex flex-col gap-4">
-            <h4 className="font-bold text-xs uppercase tracking-widest text-[#D7E2EA]/40">
+            <h4 className="font-bold text-xs uppercase tracking-widest text-textLight/40">
               Education
             </h4>
             <div className="flex flex-col gap-1 font-light text-xs sm:text-sm text-textLight/70">
-              <span className="font-bold text-[#D7E2EA] text-sm">G H Patel College of Engineering</span>
+              <span className="font-bold text-textLight text-sm">G H Patel College of Engineering</span>
               <span>B.Tech in ICT (2024 – 2028)</span>
             </div>
           </FadeIn>
         </div>
 
         {/* Footer Bottom copyright */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8 pt-8 border-t border-white/5 text-[10px] sm:text-xs text-textLight/40 font-light">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8 pt-8 border-t border-cardBorder/10 text-[10px] sm:text-xs text-textLight/40 font-light">
           <span>&copy; {new Date().getFullYear()} Rudra Chauhan. All rights reserved.</span>
           <span className="flex items-center gap-4">
             <span>Built with React, Tailwind CSS & Framer Motion</span>
-            <span className="text-white/20">|</span>
+            <span className="text-textLight/20">|</span>
             <button 
               onClick={() => {
                 sessionStorage.removeItem('hasSeenIntro');

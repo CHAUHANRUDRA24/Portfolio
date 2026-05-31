@@ -7,6 +7,7 @@ import ServicesSection from './components/ServicesSection';
 import ProjectsSection from './components/ProjectsSection';
 import Footer from './components/Footer';
 import { HardwareIntro } from './components/HardwareIntro';
+import ThemeToggle from './components/ThemeToggle';
 import useSmoothScroll from './hooks/useSmoothScroll';
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
             <ServicesSection />
             <ProjectsSection />
             <Footer />
+            <ThemeToggle />
           </motion.div>
         )}
       </AnimatePresence>

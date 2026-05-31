@@ -10,17 +10,40 @@
   padding: 0;
 }
 
+:root {
+  --bg-color: 245 245 247;
+  --text-color: 12 12 12;
+  --card-bg: 255 255 255;
+  --card-border: 12 12 12;
+  --services-bg: 12 12 12;
+  --services-text: 215 226 234;
+  --hero-gradient-start: 17 24 39;
+  --hero-gradient-end: 75 85 99;
+}
+
+html.dark {
+  --bg-color: 12 12 12;
+  --text-color: 215 226 234;
+  --card-bg: 12 12 12;
+  --card-border: 215 226 234;
+  --services-bg: 255 255 255;
+  --services-text: 12 12 12;
+  --hero-gradient-start: 100 105 115;
+  --hero-gradient-end: 187 204 215;
+}
+
 html, body, #root {
-  background-color: #0C0C0C;
-  color: #D7E2EA;
+  background-color: rgb(var(--bg-color));
+  color: rgb(var(--text-color));
   font-family: 'Kanit', sans-serif;
   min-height: 100vh;
   overflow-x: clip;
   width: 100%;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .hero-heading {
-  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+  background: linear-gradient(180deg, rgb(var(--hero-gradient-start)) 0%, rgb(var(--hero-gradient-end)) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

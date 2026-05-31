@@ -35,16 +35,16 @@ const ProjectCard: React.FC<CardProps> = ({ project, index, progress, total }) =
         style={{
           scale,
         }}
-        className={`w-full rounded-[30px] sm:rounded-[40px] md:rounded-[50px] border-2 border-[#D7E2EA]/20 bg-[#0C0C0C] p-4 sm:p-6 md:p-8 flex flex-col justify-between gap-4 h-[75vh] sm:h-[80vh] shadow-[0_20px_60px_rgba(0,0,0,0.8)] transition-all duration-500 ease-out group/card ${hoverClass}`}
+        className={`w-full rounded-[30px] sm:rounded-[40px] md:rounded-[50px] border-2 border-cardBorder/20 bg-cardBg p-4 sm:p-6 md:p-8 flex flex-col justify-between gap-4 h-[75vh] sm:h-[80vh] shadow-xl dark:shadow-[0_20px_60px_rgba(0,0,0,0.8)] transition-all duration-500 ease-out group/card ${hoverClass}`}
       >
         {/* Card Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div className="flex items-center gap-3 sm:gap-5">
-            <span className="font-black text-[#D7E2EA]/10 text-[2.5rem] sm:text-[4rem] md:text-[5rem] leading-none select-none transition-colors duration-500 group-hover/card:text-[#D7E2EA]/20">
+            <span className="font-black text-textLight/10 text-[2.5rem] sm:text-[4rem] md:text-[5rem] leading-none select-none transition-colors duration-500 group-hover/card:text-textLight/20">
               {project.num}
             </span>
             <div>
-              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#D7E2EA]/50">
+              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-textLight/50">
                 {project.category}
               </span>
               <h3 className="text-lg sm:text-xl md:text-2xl font-black uppercase text-textLight leading-tight">
@@ -56,7 +56,7 @@ const ProjectCard: React.FC<CardProps> = ({ project, index, progress, total }) =
                   project.title
                 )}
               </h3>
-              <p className="text-[9px] sm:text-xs text-[#D7E2EA]/30 font-mono mt-0.5">
+              <p className="text-[9px] sm:text-xs text-textLight/30 font-mono mt-0.5">
                 {project.tech}
               </p>
             </div>
@@ -69,12 +69,12 @@ const ProjectCard: React.FC<CardProps> = ({ project, index, progress, total }) =
         </div>
 
         {/* Card Body - Single Image Preview */}
-        <div className="flex-grow w-full overflow-hidden flex items-center justify-center bg-white/[0.02] rounded-[20px] sm:rounded-[30px] md:rounded-[40px] border border-white/5 p-4 md:p-6 mt-2">
+        <div className="flex-grow w-full overflow-hidden flex items-center justify-center bg-cardBorder/[0.02] rounded-[20px] sm:rounded-[30px] md:rounded-[40px] border border-cardBorder/5 p-4 md:p-6 mt-2">
           <a href={project.href} className="w-full h-full flex items-center justify-center group/img relative cursor-pointer">
             <img 
               src={project.img1} 
               alt={`${project.title} Preview`} 
-              className="max-w-full max-h-full object-contain rounded-xl sm:rounded-2xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.015] shadow-[0_10px_35px_rgba(0,0,0,0.6)]"
+              className="max-w-full max-h-full object-contain rounded-xl sm:rounded-2xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.015] shadow-md dark:shadow-[0_10px_35px_rgba(0,0,0,0.6)]"
               loading="lazy"
             />
           </a>
@@ -217,7 +217,7 @@ export const ProjectsSection: React.FC = () => {
       </section>
 
       {/* Awards & Recognition Section */}
-      <section id="awards" className="bg-darkBg px-5 sm:px-8 md:px-10 py-16 sm:py-24 border-t border-white/5 relative z-30">
+      <section id="awards" className="bg-darkBg px-5 sm:px-8 md:px-10 py-16 sm:py-24 border-t border-cardBorder/10 relative z-30 transition-colors duration-300">
         <div className="max-w-5xl mx-auto flex flex-col gap-8">
           <FadeIn delay={0} y={20}>
             <h3 className="hero-heading font-black uppercase text-3xl sm:text-5xl md:text-6xl tracking-tight mb-2 text-left">
@@ -230,7 +230,7 @@ export const ProjectsSection: React.FC = () => {
               <motion.div 
                 whileHover={{ y: -6, scale: 1.015 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className="group flex flex-col gap-4 p-6 rounded-3xl border border-white/5 hover:border-[#BE4C00]/40 bg-white/[0.02] hover:bg-white/[0.04] hover:shadow-[0_15px_30px_rgba(190,76,0,0.12)] transition-all duration-300 cursor-pointer h-full justify-between"
+                className="group flex flex-col gap-4 p-6 rounded-3xl border border-cardBorder/10 hover:border-[#BE4C00]/40 bg-cardBorder/[0.02] hover:bg-cardBorder/[0.04] hover:shadow-[0_15px_30px_rgba(190,76,0,0.12)] transition-all duration-300 cursor-pointer h-full justify-between"
               >
                 <div className="flex gap-4">
                   <Trophy className="w-8 h-8 sm:w-10 sm:h-10 text-[#BE4C00] flex-shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110" />
@@ -253,7 +253,7 @@ export const ProjectsSection: React.FC = () => {
               <motion.div 
                 whileHover={{ y: -6, scale: 1.015 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className="group flex flex-col gap-4 p-6 rounded-3xl border border-white/5 hover:border-[#7621B0]/40 bg-white/[0.02] hover:bg-white/[0.04] hover:shadow-[0_15px_30px_rgba(118,33,176,0.12)] transition-all duration-300 cursor-pointer h-full justify-between"
+                className="group flex flex-col gap-4 p-6 rounded-3xl border border-cardBorder/10 hover:border-[#7621B0]/40 bg-cardBorder/[0.02] hover:bg-cardBorder/[0.04] hover:shadow-[0_15px_30px_rgba(118,33,176,0.12)] transition-all duration-300 cursor-pointer h-full justify-between"
               >
                 <div className="flex gap-4">
                   <Award className="w-8 h-8 sm:w-10 sm:h-10 text-[#7621B0] flex-shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110" />
@@ -276,7 +276,7 @@ export const ProjectsSection: React.FC = () => {
               <motion.div 
                 whileHover={{ y: -6, scale: 1.015 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className="group flex flex-col gap-4 p-6 rounded-3xl border border-white/5 hover:border-[#0284C7]/40 bg-white/[0.02] hover:bg-white/[0.04] hover:shadow-[0_15px_30px_rgba(2,132,199,0.12)] transition-all duration-300 cursor-pointer h-full justify-between"
+                className="group flex flex-col gap-4 p-6 rounded-3xl border border-cardBorder/10 hover:border-[#0284C7]/40 bg-cardBorder/[0.02] hover:bg-cardBorder/[0.04] hover:shadow-[0_15px_30px_rgba(2,132,199,0.12)] transition-all duration-300 cursor-pointer h-full justify-between"
               >
                 <div className="flex gap-4">
                   <Trophy className="w-8 h-8 sm:w-10 sm:h-10 text-[#0284C7] flex-shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110" />
@@ -299,7 +299,7 @@ export const ProjectsSection: React.FC = () => {
       </section>
 
       {/* Certifications Section */}
-      <section id="certifications" className="bg-darkBg px-5 sm:px-8 md:px-10 py-16 sm:py-24 border-t border-white/5 relative z-30">
+      <section id="certifications" className="bg-darkBg px-5 sm:px-8 md:px-10 py-16 sm:py-24 border-t border-cardBorder/10 relative z-30 transition-colors duration-300">
         <div className="max-w-5xl mx-auto flex flex-col gap-8">
           <FadeIn delay={0} y={20}>
             <h3 className="hero-heading font-black uppercase text-3xl sm:text-5xl md:text-6xl tracking-tight mb-2 text-left">
@@ -322,11 +322,11 @@ export const ProjectsSection: React.FC = () => {
                     }}
                     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                     onClick={() => setSelectedCert(cert)}
-                    className={`group relative flex flex-col gap-5 p-6 rounded-[24px] border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-300 cursor-pointer h-full justify-between ${accent.border}`}
+                    className={`group relative flex flex-col gap-5 p-6 rounded-[24px] border border-cardBorder/10 bg-cardBg/[0.01] hover:bg-cardBg/[0.03] transition-all duration-300 cursor-pointer h-full justify-between ${accent.border}`}
                   >
                     <div>
                       <div className="flex justify-between items-start gap-3 mb-2">
-                        <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5 transition-transform duration-300 group-hover:scale-110">
+                        <div className="p-2.5 rounded-2xl bg-cardBorder/[0.02] border border-cardBorder/10 transition-transform duration-300 group-hover:scale-110">
                           <Icon className={`w-6 h-6 flex-shrink-0 ${accent.text}`} />
                         </div>
                         <span className="text-xs font-bold font-mono text-textLight/30 mt-2">
@@ -346,7 +346,7 @@ export const ProjectsSection: React.FC = () => {
                       )}
                     </div>
 
-                    <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between gap-3">
+                    <div className="mt-4 pt-4 border-t border-cardBorder/10 flex items-center justify-between gap-3">
                       <span className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${accent.badge}`}>
                         {cert.credentialId ? `ID: ${cert.credentialId}` : cert.issued}
                       </span>
@@ -381,12 +381,12 @@ export const ProjectsSection: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 30, scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-              className="relative w-full max-w-2xl bg-[#090909] text-textLight p-6 md:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.8)] border border-white/10 rounded-[28px] mx-auto max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-3rem)] overflow-y-auto min-h-[400px] flex flex-col gap-6 items-center"
+              className="relative w-full max-w-2xl bg-cardBg text-textLight p-6 md:p-8 shadow-2xl dark:shadow-[0_25px_60px_rgba(0,0,0,0.8)] border border-cardBorder/10 rounded-[28px] mx-auto max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-3rem)] overflow-y-auto min-h-[400px] flex flex-col gap-6 items-center transition-colors duration-300"
             >
               {/* Close Button */}
               <button 
                 onClick={() => setSelectedCert(null)}
-                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center cursor-pointer group z-20 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center cursor-pointer group z-20 rounded-full bg-cardBorder/5 border border-cardBorder/10 hover:bg-cardBorder/10 transition-colors"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5 text-textLight/70 group-hover:text-textLight transition-colors" />
@@ -402,7 +402,7 @@ export const ProjectsSection: React.FC = () => {
                 </p>
 
                 {/* Double Bordered Image Container (4:3 aspect ratio) */}
-                <div className="w-full aspect-[4/3] border border-white/10 p-2 sm:p-4 bg-white/[0.01] relative overflow-hidden rounded-2xl flex items-center justify-center group/modalimg shadow-[inset_0_4px_30px_rgba(0,0,0,0.5)]">
+                <div className="w-full aspect-[4/3] border border-cardBorder/10 p-2 sm:p-4 bg-cardBorder/[0.01] relative overflow-hidden rounded-2xl flex items-center justify-center group/modalimg shadow-inner dark:shadow-[inset_0_4px_30px_rgba(0,0,0,0.5)]">
                   {selectedCert.imageUrl ? (
                     <img 
                       src={selectedCert.imageUrl} 
@@ -410,8 +410,8 @@ export const ProjectsSection: React.FC = () => {
                       className="max-w-full max-h-full object-contain rounded-lg transition-transform duration-700 ease-out group-hover/modalimg:scale-[1.015]"
                     />
                   ) : (
-                    <div className="w-full h-full border border-white/5 flex flex-col items-center justify-center text-center p-6 bg-white/[0.01] rounded-lg">
-                      <BookOpen className="text-5xl text-white/20 mb-3" />
+                    <div className="w-full h-full border border-cardBorder/5 flex flex-col items-center justify-center text-center p-6 bg-cardBorder/[0.01] rounded-lg">
+                      <BookOpen className="text-5xl text-textLight/20 mb-3" />
                       <p className="font-sans text-lg font-bold text-textLight/60">No Preview Linked</p>
                       <p className="text-xs text-textLight/30 mt-2">{selectedCert.imageLabel || 'No preview linked yet'}</p>
                     </div>
@@ -420,7 +420,7 @@ export const ProjectsSection: React.FC = () => {
 
                 {/* Skewed Yellow Credential ID Badge */}
                 {selectedCert.credentialId && (
-                  <div className="px-4 py-2 bg-white/[0.03] border border-white/10 rounded-xl text-sm font-mono tracking-wider text-textLight/90 flex items-center gap-3">
+                  <div className="px-4 py-2 bg-cardBorder/[0.03] border border-cardBorder/10 rounded-xl text-sm font-mono tracking-wider text-textLight/90 flex items-center gap-3">
                     <span className="text-[10px] uppercase text-textLight/40 tracking-wider font-sans font-bold">Credential ID</span>
                     <span className="font-black text-primary">{selectedCert.credentialId}</span>
                   </div>
@@ -439,7 +439,7 @@ export const ProjectsSection: React.FC = () => {
                     {selectedCert.skills.map((skill) => (
                       <span 
                         key={skill} 
-                        className="px-3.5 py-1.5 bg-white/[0.03] border border-white/5 rounded-full text-xs font-semibold text-textLight/70 hover:text-textLight hover:border-white/20 transition-colors"
+                        className="px-3.5 py-1.5 bg-cardBorder/[0.03] border border-cardBorder/10 rounded-full text-xs font-semibold text-textLight/70 hover:text-textLight hover:border-cardBorder/30 transition-colors"
                       >
                         {skill}
                       </span>

@@ -40,41 +40,41 @@ export const ServicesSection: React.FC = () => {
   return (
     <section 
       id="services" 
-      className="bg-[#FFFFFF] text-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 relative z-20"
+      className="bg-servicesBg text-servicesText rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 relative z-20 transition-colors duration-300"
     >
       <div className="max-w-5xl mx-auto">
         {/* Heading */}
         <FadeIn delay={0} y={40}>
-          <h2 className="font-black uppercase text-center text-[#0C0C0C] text-[3rem] sm:text-[6rem] md:text-[8.5rem] lg:text-[10rem] leading-none mb-16 sm:mb-20 md:mb-28">
+          <h2 className="font-black uppercase text-center text-servicesText text-[3rem] sm:text-[6rem] md:text-[8.5rem] lg:text-[10rem] leading-none mb-16 sm:mb-20 md:mb-28">
             Services
           </h2>
         </FadeIn>
 
         {/* Services List */}
-        <div className="flex flex-col border-t border-[#0C0C0C]/15">
+        <div className="flex flex-col border-t border-servicesText/15">
           {servicesList.map((service, index) => (
             <FadeIn 
               key={service.num} 
               delay={index * 0.1} 
               y={30} 
-              className="border-b border-[#0C0C0C]/15"
+              className="border-b border-servicesText/15"
             >
               <motion.div 
                 whileHover={{ x: 16 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-                className="group flex items-center gap-6 sm:gap-10 md:gap-16 py-8 sm:py-10 md:py-12 cursor-pointer transition-colors duration-300 hover:bg-[#0c0c0c]/[0.01] px-4 -mx-4 rounded-2xl"
+                className="group flex items-center gap-6 sm:gap-10 md:gap-16 py-8 sm:py-10 md:py-12 cursor-pointer transition-colors duration-300 hover:bg-servicesText/[0.02] px-4 -mx-4 rounded-2xl"
               >
                 {/* Left: Huge Number */}
-                <div className="font-black text-[#0C0C0C] text-[3rem] sm:text-[6rem] md:text-[8rem] lg:text-[9rem] leading-none select-none min-w-[70px] sm:min-w-[150px] md:min-w-[200px] transition-colors duration-300 group-hover:text-[#B600A8]">
+                <div className="font-black text-servicesText text-[3rem] sm:text-[6rem] md:text-[8rem] lg:text-[9rem] leading-none select-none min-w-[70px] sm:min-w-[150px] md:min-w-[200px] transition-colors duration-300 group-hover:text-[#B600A8]">
                   {service.num}
                 </div>
 
                 {/* Right: Stacked Name + Description */}
                 <div className="flex flex-col gap-2 flex-grow">
-                  <h3 className="font-medium uppercase text-[#0C0C0C] text-[1.1rem] sm:text-[1.6rem] md:text-[2.1rem] leading-tight transition-colors duration-300 group-hover:text-[#7621B0]">
+                  <h3 className="font-medium uppercase text-servicesText text-[1.1rem] sm:text-[1.6rem] md:text-[2.1rem] leading-tight transition-colors duration-300 group-hover:text-[#7621B0]">
                     {service.title}
                   </h3>
-                  <p className="font-light leading-relaxed max-w-2xl text-[#0C0C0C]/60 text-[0.85rem] sm:text-[1.1rem] md:text-[1.25rem] transition-colors duration-300 group-hover:text-[#0C0C0C]/85">
+                  <p className="font-light leading-relaxed max-w-2xl text-servicesText/60 text-[0.85rem] sm:text-[1.1rem] md:text-[1.25rem] transition-colors duration-300 group-hover:text-servicesText/85">
                     {service.desc}
                   </p>
                 </div>

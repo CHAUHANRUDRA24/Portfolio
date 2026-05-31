@@ -7,7 +7,7 @@ interface ContactButtonProps {
 export const ContactButton: React.FC<ContactButtonProps> = ({ className = '' }) => {
   return (
     <a
-      href="mailto:shani.rudra024@gmail.com"
+      href="mailto:rudrachauhan2475@gmail.com"
       className={`inline-block rounded-full transition-all hover:scale-105 active:scale-95 duration-200 cursor-pointer ${className}`}
       style={{
         background: 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
