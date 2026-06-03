@@ -374,7 +374,7 @@ export const projectsList: ProjectData[] = [
     href: 'project.html?id=votepath-ai',
     img1: '/votepath1.png',
     img2: '/votepath2.png',
-    img3: '/votepath3.png',
+    img3: '/votepath_hero.png',
     hasStudy: true,
     description: 'An AI-powered assistant designed to simplify and improve the way people understand the election process, making voting accessible, transparent, and easy to navigate.',
     problem:

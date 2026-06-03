@@ -656,22 +656,21 @@ export const ProjectsSection: React.FC = () => {
                 </div>
 
                 {/* Hero Image Section */}
-                {selectedProject.img3 && (
-                  <div className="relative w-full aspect-video rounded-[24px] overflow-hidden border border-cardBorder/10 bg-cardBg group shadow-lg">
-                    <img 
-                      src={selectedProject.img3} 
-                      alt={selectedProject.title} 
-                      className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
-                    />
-                    {selectedProject.heroCaption && (
-                      <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 sm:p-6 flex items-end">
-                        <p className="text-xs sm:text-sm md:text-base font-medium italic text-textLight/80 font-mono">
-                          {selectedProject.heroCaption}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )}
+                <div className="relative w-full rounded-[24px] overflow-hidden border border-cardBorder/10 bg-black/30 group shadow-lg flex items-center justify-center min-h-[200px]" style={{ aspectRatio: '16/9' }}>
+                  <img 
+                    src={selectedProject.img3 || selectedProject.img1} 
+                    alt={selectedProject.title} 
+                    className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+                    onError={(e) => { (e.target as HTMLImageElement).src = selectedProject.img1; }}
+                  />
+                  {selectedProject.heroCaption && (
+                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 sm:p-6 flex items-end">
+                      <p className="text-xs sm:text-sm md:text-base font-medium italic text-white/80 font-mono">
+                        {selectedProject.heroCaption}
+                      </p>
+                    </div>
+                  )}
+                </div>
 
                 {/* What This Project Is (Summary) */}
                 {selectedProject.description && (
