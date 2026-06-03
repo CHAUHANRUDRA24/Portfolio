@@ -48,7 +48,7 @@ export const useSmoothScroll = (active: boolean = true) => {
       cancelAnimationFrame(rafId);
       document.removeEventListener('click', handleAnchorClick);
     };
-  }, []);
+  }, [active]);
 };
 
 export default useSmoothScroll;

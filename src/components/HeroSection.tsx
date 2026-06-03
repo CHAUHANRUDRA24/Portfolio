@@ -1,5 +1,6 @@
 
 import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import { FadeIn } from './FadeIn';
 import { ContactButton } from './ContactButton';
 import { ResumeButton } from './ResumeButton';
@@ -15,6 +16,48 @@ export const HeroSection: React.FC = () => {
     containerRef.current.style.setProperty('--mouse-x', `${x}px`);
     containerRef.current.style.setProperty('--mouse-y', `${y}px`);
   };
+
+  // Animation variants for the load-in sequence
+  const badgeVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { type: 'spring' as const, stiffness: 100, damping: 15, delay: 0.1 }
+    }
+  };
+
+  const titleContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.04,
+        delayChildren: 0.2,
+      }
+    }
+  };
+
+  const letterVariants = {
+    hidden: { opacity: 0, y: 60, rotateX: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: { type: 'spring' as const, stiffness: 130, damping: 13 }
+    }
+  };
+
+  const subtitleVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const, delay: 0.7 }
+    }
+  };
+
+  const words = ["I'm", "Rudra"];
 
   return (
     <section 
@@ -71,26 +114,52 @@ export const HeroSection: React.FC = () => {
 
       {/* Hero Heading Container */}
       <div className="flex-grow flex items-center justify-center relative z-10 mt-6 sm:mt-4 md:-mt-5">
-        <div className="w-full text-center px-4">
-          <FadeIn delay={0.15} y={40} className="flex flex-col items-center">
-            {/* Professional Status Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#B600A8] mb-6 hover:border-white/20 transition-all duration-300 select-none">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B600A8] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B600A8]"></span>
+        <div className="w-full text-center px-4 flex flex-col items-center">
+          {/* Professional Status Badge */}
+          <motion.div 
+            variants={badgeVariants}
+            initial="hidden"
+            animate="visible"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#B600A8] mb-6 hover:border-white/20 transition-all duration-300 select-none"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B600A8] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B600A8]"></span>
+            </span>
+            Available for Internships & Collaborations
+          </motion.div>
+
+          {/* Letter-by-Letter Spring Reveal Heading */}
+          <motion.h1 
+            variants={titleContainerVariants}
+            initial="hidden"
+            animate="visible"
+            className="hero-heading font-black uppercase tracking-tight leading-none text-[11vw] sm:text-[10vw] md:text-[9vw] lg:text-[8.5vw] select-none w-full flex flex-wrap justify-center items-center gap-x-[0.3em] perspective-[1000px]"
+          >
+            {words.map((word, wIdx) => (
+              <span key={wIdx} className="inline-block whitespace-nowrap">
+                {word.split("").map((char, cIdx) => (
+                  <motion.span
+                    key={`${wIdx}-${cIdx}`}
+                    variants={letterVariants}
+                    className="inline-block origin-bottom"
+                  >
+                    {char}
+                  </motion.span>
+                ))}
               </span>
-              Available for Internships & Collaborations
-            </div>
+            ))}
+          </motion.h1>
 
-            <h1 className="hero-heading font-black uppercase tracking-tight leading-none text-[11vw] sm:text-[10vw] md:text-[9vw] lg:text-[8.5vw] select-none whitespace-normal break-words w-full">
-              I&apos;m Rudra
-            </h1>
-
-            {/* Dynamic Subtitle */}
-            <p className="mt-6 text-[10px] sm:text-xs md:text-sm lg:text-base text-textLight/60 tracking-[0.25em] uppercase font-light max-w-2xl mx-auto leading-relaxed select-none">
-              Embedded Systems <span className="text-[#B600A8] font-normal mx-1">/</span> Full-Stack Web <span className="text-[#7621B0] font-normal mx-1">/</span> IoT Architect
-            </p>
-          </FadeIn>
+          {/* Dynamic Subtitle */}
+          <motion.p 
+            variants={subtitleVariants}
+            initial="hidden"
+            animate="visible"
+            className="mt-6 text-[10px] sm:text-xs md:text-sm lg:text-base text-textLight/60 tracking-[0.25em] uppercase font-light max-w-2xl mx-auto leading-relaxed select-none"
+          >
+            Embedded Systems <span className="text-[#B600A8] font-normal mx-1">/</span> Full-Stack Web <span className="text-[#7621B0] font-normal mx-1">/</span> IoT Architect
+          </motion.p>
         </div>
       </div>
 
