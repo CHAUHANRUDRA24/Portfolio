@@ -2,7 +2,22 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, MotionValue, AnimatePresence } from 'framer-motion';
 import { LiveProjectButton } from './LiveProjectButton';
 import { FadeIn } from './FadeIn';
-import { Trophy, Award, BookOpen, ShieldAlert, Cpu, X, ExternalLink } from 'lucide-react';
+import { 
+  Trophy, 
+  Award, 
+  BookOpen, 
+  ShieldAlert, 
+  Cpu, 
+  X, 
+  ExternalLink,
+  Calendar,
+  Users,
+  Wrench,
+  Play,
+  AlertTriangle,
+  Lightbulb,
+  CheckCircle2
+} from 'lucide-react';
 import { projectsList } from '../data/projectsData';
 import type { ProjectData } from '../data/projectsData';
 import { certificatesList } from '../data/certificatesData';
@@ -13,9 +28,10 @@ interface CardProps {
   index: number;
   progress: MotionValue<number>;
   total: number;
+  onViewStudy: () => void;
 }
 
-const ProjectCard: React.FC<CardProps> = ({ project, index, progress, total }) => {
+const ProjectCard: React.FC<CardProps> = ({ project, index, progress, total, onViewStudy }) => {
   const targetScale = 1 - (total - 1 - index) * 0.03;
   const start = index * 0.22;
   const scale = useTransform(progress, [start, 0.85], [1, targetScale]);
@@ -49,9 +65,12 @@ const ProjectCard: React.FC<CardProps> = ({ project, index, progress, total }) =
               </span>
               <h3 className="text-lg sm:text-xl md:text-2xl font-black uppercase text-textLight leading-tight">
                 {project.hasStudy ? (
-                  <a href={project.href} className="hover:underline hover:text-[#BE4C00] transition-colors">
+                  <button 
+                    onClick={onViewStudy} 
+                    className="text-left font-black uppercase text-textLight hover:underline hover:text-[#BE4C00] transition-colors focus:outline-none"
+                  >
                     {project.title}
-                  </a>
+                  </button>
                 ) : (
                   project.title
                 )}
@@ -64,20 +83,43 @@ const ProjectCard: React.FC<CardProps> = ({ project, index, progress, total }) =
           <LiveProjectButton 
             href={project.href} 
             label={project.hasStudy ? 'View Study' : 'Live Project'}
+            onClick={project.hasStudy ? (e) => {
+              e.preventDefault();
+              onViewStudy();
+            } : undefined}
             className="self-stretch sm:self-auto text-xs py-2 px-6 sm:py-2.5 sm:px-8 transition-colors duration-300" 
           />
         </div>
 
         {/* Card Body - Single Image Preview */}
         <div className="flex-grow w-full overflow-hidden flex items-center justify-center bg-cardBorder/[0.02] rounded-[20px] sm:rounded-[30px] md:rounded-[40px] border border-cardBorder/5 p-4 md:p-6 mt-2">
-          <a href={project.href} className="w-full h-full flex items-center justify-center group/img relative cursor-pointer">
-            <img 
-              src={project.img1} 
-              alt={`${project.title} Preview`} 
-              className="max-w-full max-h-full object-contain rounded-xl sm:rounded-2xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.015] shadow-md dark:shadow-[0_10px_35px_rgba(0,0,0,0.6)]"
-              loading="lazy"
-            />
-          </a>
+          {project.hasStudy ? (
+            <button 
+              onClick={onViewStudy} 
+              className="w-full h-full flex items-center justify-center group/img relative cursor-pointer focus:outline-none"
+            >
+              <img 
+                src={project.img1} 
+                alt={`${project.title} Preview`} 
+                className="max-w-full max-h-full object-contain rounded-xl sm:rounded-2xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.015] shadow-md dark:shadow-[0_10px_35px_rgba(0,0,0,0.6)]"
+                loading="lazy"
+              />
+            </button>
+          ) : (
+            <a 
+              href={project.href} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="w-full h-full flex items-center justify-center group/img relative cursor-pointer"
+            >
+              <img 
+                src={project.img1} 
+                alt={`${project.title} Preview`} 
+                className="max-w-full max-h-full object-contain rounded-xl sm:rounded-2xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.015] shadow-md dark:shadow-[0_10px_35px_rgba(0,0,0,0.6)]"
+                loading="lazy"
+              />
+            </a>
+          )}
         </div>
       </motion.div>
     </div>
@@ -87,6 +129,7 @@ const ProjectCard: React.FC<CardProps> = ({ project, index, progress, total }) =
 export const ProjectsSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedCert, setSelectedCert] = useState<CertificateData | null>(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
 
   // Track scroll inside projects container to drive scaling
   const { scrollYProgress } = useScroll({
@@ -96,7 +139,7 @@ export const ProjectsSection: React.FC = () => {
 
   // Prevent scroll when modal is open
   useEffect(() => {
-    if (selectedCert) {
+    if (selectedCert || selectedProject) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -104,7 +147,69 @@ export const ProjectsSection: React.FC = () => {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [selectedCert]);
+  }, [selectedCert, selectedProject]);
+
+  // Helper function to pick styling colors based on project ID
+  const getThemeColors = (id: string) => {
+    switch (id) {
+      case 'crowdflow-ai':
+        return {
+          primary: '#B600A8',
+          accent: '#7621B0',
+          bgGlow: 'rgba(182, 0, 168, 0.15)',
+          badge: 'bg-[#B600A8]/20 text-[#D7E2EA]'
+        };
+      case 'smart-safety-helmet':
+        return {
+          primary: '#7621B0',
+          accent: '#B600A8',
+          bgGlow: 'rgba(118, 33, 176, 0.15)',
+          badge: 'bg-[#7621B0]/20 text-[#B600A8]'
+        };
+      case 'dynamic-footlamp':
+        return {
+          primary: '#BE4C00',
+          accent: '#F59E0B',
+          bgGlow: 'rgba(190, 76, 0, 0.15)',
+          badge: 'bg-[#BE4C00]/20 text-[#F59E0B]'
+        };
+      case 'agromind-ai':
+        return {
+          primary: '#10B981',
+          accent: '#34D399',
+          bgGlow: 'rgba(16, 185, 129, 0.15)',
+          badge: 'bg-[#10B981]/20 text-[#34D399]'
+        };
+      case 'votepath-ai':
+        return {
+          primary: '#C2410C',
+          accent: '#EA580C',
+          bgGlow: 'rgba(194, 65, 12, 0.15)',
+          badge: 'bg-[#C2410C]/20 text-[#EA580C]'
+        };
+      case 'agri-titan-x6':
+        return {
+          primary: '#0D9488',
+          accent: '#2DD4BF',
+          bgGlow: 'rgba(13, 148, 136, 0.15)',
+          badge: 'bg-[#0D9488]/20 text-[#2DD4BF]'
+        };
+      case 'smart-water-grid':
+        return {
+          primary: '#0284C7',
+          accent: '#38BDF8',
+          bgGlow: 'rgba(2, 132, 199, 0.15)',
+          badge: 'bg-[#0284C7]/20 text-[#38BDF8]'
+        };
+      default:
+        return {
+          primary: '#B600A8',
+          accent: '#BE4C00',
+          bgGlow: 'rgba(182, 0, 168, 0.15)',
+          badge: 'bg-[#B600A8]/20 text-[#D7E2EA]'
+        };
+    }
+  };
 
   // Accent mapping for custom premium dark styling
   const accentColorMap: Record<string, { badge: string; text: string; border: string; glow: string }> = {
@@ -210,6 +315,7 @@ export const ProjectsSection: React.FC = () => {
                 index={index} 
                 progress={scrollYProgress} 
                 total={projectsList.length}
+                onViewStudy={() => setSelectedProject(project)}
               />
             ))}
           </div>
@@ -470,6 +576,244 @@ export const ProjectsSection: React.FC = () => {
             </motion.div>
           </div>
         )}
+
+        {/* Project Case Study Modal Overlay */}
+        {selectedProject && (() => {
+          const theme = getThemeColors(selectedProject.id);
+          return (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 overflow-y-auto">
+              {/* Backdrop */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setSelectedProject(null)}
+                className="absolute inset-0 bg-black/90 backdrop-blur-sm cursor-pointer"
+              />
+              
+              {/* Modal Sheet */}
+              <motion.div 
+                initial={{ opacity: 0, y: 30, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 30, scale: 0.98 }}
+                transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                className="relative w-full max-w-5xl bg-cardBg text-textLight p-6 sm:p-10 md:p-12 shadow-2xl dark:shadow-[0_25px_60px_rgba(0,0,0,0.8)] border border-cardBorder/10 rounded-[32px] mx-auto max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-3rem)] overflow-y-auto flex flex-col gap-8 items-center transition-colors duration-300"
+              >
+                {/* Close Button */}
+                <button 
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center cursor-pointer group z-20 rounded-full bg-cardBorder/5 border border-cardBorder/10 hover:bg-cardBorder/10 transition-colors"
+                  aria-label="Close case study"
+                >
+                  <X className="w-5 h-5 text-textLight/70 group-hover:text-textLight transition-colors" />
+                </button>
+
+                {/* Modal Header */}
+                <div className="flex flex-col gap-4 w-full border-b border-cardBorder/10 pb-6 mt-4">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="bg-textLight/10 text-textLight/90 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-widest rounded-md">
+                      Case Study {selectedProject.num}
+                    </span>
+                    {selectedProject.id === 'smart-safety-helmet' && (
+                      <span className="bg-[#BE4C00]/20 text-[#F59E0B] px-3 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-md flex items-center gap-1">
+                        <Trophy className="w-3.5 h-3.5 text-[#BE4C00]" /> #1 TECHNOVATION 2026
+                      </span>
+                    )}
+                  </div>
+                  <h2 className="font-black text-2xl sm:text-4xl md:text-5xl text-textLight uppercase tracking-tight max-w-[90%] leading-tight text-left">
+                    {selectedProject.title}
+                  </h2>
+                  
+                  {/* Project Meta Info */}
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-3 font-medium text-xs sm:text-sm text-textLight/60 mt-1 font-mono">
+                    {selectedProject.tech && (
+                      <div className="flex items-center gap-1.5">
+                        <Wrench className="w-4 h-4 text-textLight/40" />
+                        <span>{selectedProject.tech}</span>
+                      </div>
+                    )}
+                    {selectedProject.teamSize && (
+                      <>
+                        <span className="hidden sm:inline text-textLight/20">|</span>
+                        <div className="flex items-center gap-1.5">
+                          <Users className="w-4 h-4 text-textLight/40" />
+                          <span>{selectedProject.teamSize}</span>
+                        </div>
+                      </>
+                    )}
+                    {selectedProject.duration && (
+                      <>
+                        <span className="hidden sm:inline text-textLight/20">|</span>
+                        <div className="flex items-center gap-1.5">
+                          <Calendar className="w-4 h-4 text-textLight/40" />
+                          <span>{selectedProject.duration}</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Hero Image Section */}
+                {selectedProject.img3 && (
+                  <div className="relative w-full aspect-video rounded-[24px] overflow-hidden border border-cardBorder/10 bg-cardBg group shadow-lg">
+                    <img 
+                      src={selectedProject.img3} 
+                      alt={selectedProject.title} 
+                      className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+                    />
+                    {selectedProject.heroCaption && (
+                      <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 sm:p-6 flex items-end">
+                        <p className="text-xs sm:text-sm md:text-base font-medium italic text-textLight/80 font-mono">
+                          {selectedProject.heroCaption}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* What This Project Is (Summary) */}
+                {selectedProject.description && (
+                  <div className="relative w-full bg-cardBorder/[0.01] border border-cardBorder/5 rounded-[24px] p-6 sm:p-8 md:p-10 overflow-hidden text-left">
+                    <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-[100px] pointer-events-none -z-10" style={{ background: theme.bgGlow }}></div>
+                    <h3 className="text-lg sm:text-xl font-black uppercase tracking-wide text-white mb-4 flex items-center gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-[#BE4C00]" /> What This Project Is
+                    </h3>
+                    <p className="text-sm sm:text-base md:text-lg text-textLight/85 leading-relaxed font-light">
+                      {selectedProject.description}
+                    </p>
+                  </div>
+                )}
+
+                {/* Problem and Solution Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full text-left">
+                  {/* Problem */}
+                  {selectedProject.problem && (
+                    <div className="bg-cardBorder/[0.01] border border-cardBorder/5 hover:border-red-500/10 rounded-[24px] p-6 sm:p-8 transition-colors duration-300">
+                      <h3 className="text-base sm:text-lg font-black uppercase tracking-wide text-white mb-4 flex items-center gap-2">
+                        <AlertTriangle className="w-5 h-5 text-red-500 animate-pulse" /> The Problem
+                      </h3>
+                      <div 
+                        className="text-xs sm:text-sm md:text-base text-textLight/80 leading-relaxed font-light space-y-4"
+                        dangerouslySetInnerHTML={{ __html: selectedProject.problem }}
+                      />
+                    </div>
+                  )}
+
+                  {/* Solution */}
+                  {selectedProject.solution && (
+                    <div className="bg-cardBorder/[0.01] border border-cardBorder/5 hover:border-green-500/10 rounded-[24px] p-6 sm:p-8 transition-colors duration-300">
+                      <h3 className="text-base sm:text-lg font-black uppercase tracking-wide text-white mb-4 flex items-center gap-2">
+                        <Lightbulb className="w-5 h-5 text-green-500" /> The Solution
+                      </h3>
+                      <div 
+                        className="text-xs sm:text-sm md:text-base text-textLight/80 leading-relaxed font-light space-y-4"
+                        dangerouslySetInnerHTML={{ __html: selectedProject.solution }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Gallery */}
+                {selectedProject.gallery && selectedProject.gallery.length > 0 && (
+                  <div className="flex flex-col gap-6 w-full text-left">
+                    <h3 className="text-base sm:text-lg font-black uppercase tracking-wide text-white">
+                      Project Gallery & Artifacts
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                      {selectedProject.gallery.map((item, index) => (
+                        <div key={index} className="group/gallery relative flex flex-col gap-3">
+                          <div className="aspect-[4/3] rounded-[18px] overflow-hidden border border-cardBorder/10 bg-cardBorder/5 group-hover/gallery:border-[#BE4C00]/20 transition-all duration-300">
+                            <img 
+                              src={item.url} 
+                              alt={item.caption} 
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover/gallery:scale-105"
+                              loading="lazy"
+                            />
+                          </div>
+                          <p className="text-[10px] sm:text-xs text-textLight/50 font-mono text-center px-2">
+                            {item.caption}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Results Section */}
+                {selectedProject.results && selectedProject.results.length > 0 && (
+                  <div className="bg-cardBorder/[0.01] border border-cardBorder/5 rounded-[24px] p-6 sm:p-8 md:p-10 w-full flex flex-col gap-8 text-center transition-colors duration-300">
+                    <h3 className="text-lg sm:text-xl font-black uppercase tracking-wide text-white underline underline-offset-8 decoration-wavy decoration-[#BE4C00]">
+                      Final Results
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 mt-2">
+                      {selectedProject.results.map((r, i) => (
+                        <div key={i} className="flex flex-col gap-2 items-center">
+                          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border border-dashed border-cardBorder/20 flex flex-col items-center justify-center bg-cardBorder/[0.02] hover:border-[#BE4C00]/40 transition-colors relative">
+                            <span className="font-mono font-black text-xl sm:text-2xl text-white">
+                              {r.value}
+                            </span>
+                            {i === 0 && <span className="absolute -top-1 -right-1 text-base">🏆</span>}
+                          </div>
+                          <h4 className="font-black font-mono uppercase text-xs sm:text-sm text-white mt-1">
+                            {r.label}
+                          </h4>
+                          <p className="text-[10px] sm:text-xs font-light text-textLight/50 font-mono">
+                            {r.note}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Action Links */}
+                {selectedProject.links && selectedProject.links.length > 0 && (
+                  <div className="flex flex-wrap justify-center gap-4 mt-2">
+                    {selectedProject.links.map((link, i) => (
+                      <a 
+                        key={i}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center gap-2.5 font-bold uppercase tracking-wider text-xs sm:text-sm px-8 py-3.5 border-2 rounded-full transition-all duration-300 hover:-translate-y-0.5 shadow-md ${
+                          i === 0 
+                            ? 'bg-textLight text-darkBg border-textLight hover:bg-textLight/90 hover:border-textLight/90 shadow-md' 
+                            : 'bg-transparent text-textLight border-textLight/20 hover:border-textLight hover:bg-textLight/5'
+                        }`}
+                      >
+                        {link.icon === 'play' ? <Play className="w-4 h-4 fill-current" /> : <Award className="w-4 h-4" />}
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+
+                {/* Press links */}
+                {selectedProject.pressLinks && selectedProject.pressLinks.length > 0 && (
+                  <div className="bg-cardBorder/[0.01] border border-dashed border-cardBorder/10 rounded-[24px] p-6 sm:p-8 w-full text-center mt-2">
+                    <h4 className="text-sm font-black uppercase tracking-wide text-white mb-4">
+                      Press & Public Media Coverage
+                    </h4>
+                    <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+                      {selectedProject.pressLinks.map((p, idx) => (
+                        <a 
+                          key={idx}
+                          href={p.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-textLight/60 hover:text-white transition-colors group font-mono"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5 text-[#BE4C00] group-hover:scale-110 transition-transform" />
+                          <span className="border-b border-dashed border-textLight/20 group-hover:border-white">{p.label}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </div>
+          );
+        })()}
       </AnimatePresence>
     </div>
   );
