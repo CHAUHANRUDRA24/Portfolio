@@ -1,10 +1,38 @@
 
+import { useRef } from 'react';
 import { FadeIn } from './FadeIn';
 import { ContactButton } from './ContactButton';
+import { ResumeButton } from './ResumeButton';
 
 export const HeroSection: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    containerRef.current.style.setProperty('--mouse-x', `${x}px`);
+    containerRef.current.style.setProperty('--mouse-y', `${y}px`);
+  };
+
   return (
-    <section className="relative h-screen flex flex-col justify-between overflow-x-clip bg-darkBg text-textLight">
+    <section 
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      className="relative h-screen flex flex-col justify-between overflow-x-clip bg-darkBg text-textLight"
+    >
+      {/* Background Tech Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none z-0" />
+
+      {/* Interactive Spotlight Glow */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(182, 0, 168, 0.12), rgba(118, 33, 176, 0.06) 30%, transparent 70%)`
+        }}
+      />
+
       {/* Navbar */}
       <FadeIn delay={0} y={-20} className="relative z-30 w-full">
         <nav className="flex justify-between items-center px-6 md:px-10 pt-6 md:pt-8">
@@ -44,10 +72,24 @@ export const HeroSection: React.FC = () => {
       {/* Hero Heading Container */}
       <div className="flex-grow flex items-center justify-center relative z-10 mt-6 sm:mt-4 md:-mt-5">
         <div className="w-full text-center px-4">
-          <FadeIn delay={0.15} y={40}>
+          <FadeIn delay={0.15} y={40} className="flex flex-col items-center">
+            {/* Professional Status Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#B600A8] mb-6 hover:border-white/20 transition-all duration-300 select-none">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B600A8] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B600A8]"></span>
+              </span>
+              Available for Internships & Collaborations
+            </div>
+
             <h1 className="hero-heading font-black uppercase tracking-tight leading-none text-[11vw] sm:text-[10vw] md:text-[9vw] lg:text-[8.5vw] select-none whitespace-normal break-words w-full">
               I&apos;m Rudra
             </h1>
+
+            {/* Dynamic Subtitle */}
+            <p className="mt-6 text-[10px] sm:text-xs md:text-sm lg:text-base text-textLight/60 tracking-[0.25em] uppercase font-light max-w-2xl mx-auto leading-relaxed select-none">
+              Embedded Systems <span className="text-[#B600A8] font-normal mx-1">/</span> Full-Stack Web <span className="text-[#7621B0] font-normal mx-1">/</span> IoT Architect
+            </p>
           </FadeIn>
         </div>
       </div>
@@ -64,8 +106,9 @@ export const HeroSection: React.FC = () => {
           </p>
         </FadeIn>
 
-        {/* Right Contact button */}
-        <FadeIn delay={0.5} y={20}>
+        {/* Right Action buttons */}
+        <FadeIn delay={0.5} y={20} className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center">
+          <ResumeButton />
           <ContactButton />
         </FadeIn>
       </div>
