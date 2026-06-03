@@ -4,7 +4,12 @@ import { AnimatedText } from './AnimatedText';
 import { ContactButton } from './ContactButton';
 
 export const AboutSection: React.FC = () => {
-  const aboutText = "Pursuing my B.Tech in Information and Communication Technology, i focus on embedded systems, logic circuit design, and full-stack web development. I truly enjoy building smart, hardware-integrated systems and modern web applications that solve real-world problems. Let's build something incredible together!";
+  const paragraphs = [
+    "Hello, I'm Rudra Chauhan, a B.Tech Information and Communication Technology (ICT) student at G H Patel College of Engineering & Technology, Anand. I am passionate about building technology-driven solutions that solve real-world problems through AI, software development, and embedded systems.",
+    "My experience spans full-stack web development, cloud technologies, data analytics, and hardware-based system design. I have worked on projects ranging from AI-powered crowd monitoring platforms and analytics dashboards to embedded electronics solutions such as smart safety systems and automated lighting devices. Through these projects, I have gained hands-on experience with React, Firebase, Node.js, MongoDB, Python, Google Cloud, and IoT technologies.",
+    "I actively participate in hackathons and innovation challenges, where I enjoy transforming ideas into practical products. These experiences have strengthened my problem-solving abilities, teamwork, leadership, and adaptability while working under tight deadlines.",
+    "My goal is to create scalable and impactful technology solutions that improve safety, efficiency, and decision-making. I am constantly learning new technologies and exploring opportunities to contribute to innovative projects that make a meaningful difference in people's lives."
+  ];
 
   return (
     <section 
@@ -82,11 +87,14 @@ export const AboutSection: React.FC = () => {
         </FadeIn>
 
         {/* Paragraph text with scroll reveal */}
-        <div className="mt-10 sm:mt-14 md:mt-16 max-w-[560px] mx-auto">
-          <AnimatedText 
-            text={aboutText} 
-            className="text-textLight font-medium text-center leading-relaxed text-[1rem] sm:text-[1.2rem] md:text-[1.35rem]"
-          />
+        <div className="mt-10 sm:mt-14 md:mt-16 max-w-3xl mx-auto flex flex-col gap-6 sm:gap-8">
+          {paragraphs.map((para, index) => (
+            <AnimatedText 
+              key={index}
+              text={para} 
+              className="text-textLight/90 font-medium text-center leading-relaxed text-[0.95rem] sm:text-[1.1rem] md:text-[1.2rem]"
+            />
+          ))}
         </div>
 
         {/* Contact Button */}
