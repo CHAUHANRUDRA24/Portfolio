@@ -49,14 +49,7 @@ html, body, #root {
   background-clip: text;
 }
 
-/* Hide scrollbar for marquee but allow scrolling */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+
 
 /* Lenis smooth scroll setup */
 html.lenis, html.lenis body {
