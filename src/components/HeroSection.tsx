@@ -95,19 +95,19 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="relative z-30 pb-7 sm:pb-8 md:pb-10 px-6 md:px-10 flex justify-between items-end w-full">
+      <div className="relative z-30 pb-7 sm:pb-8 md:pb-10 px-6 md:px-10 flex flex-col md:flex-row justify-between items-start md:items-end w-full gap-6 md:gap-0">
         {/* Left description text */}
-        <FadeIn delay={0.35} y={20}>
+        <FadeIn delay={0.35} y={20} className="w-full md:w-auto">
           <p 
-            className="text-textLight font-light uppercase tracking-wide leading-snug max-w-[160px] sm:max-w-[220px] md:max-w-[260px]"
-            style={{ fontSize: 'clamp(0.75rem, 1.4vw, 1.5rem)' }}
+            className="text-textLight/70 font-light uppercase tracking-[0.18em] leading-relaxed max-w-sm sm:max-w-md md:max-w-lg text-left"
+            style={{ fontSize: 'clamp(0.8rem, 1.25vw, 1.4rem)' }}
           >
             an embedded systems & full-stack developer crafting smart and innovative hardware solutions
           </p>
         </FadeIn>
 
         {/* Right Action buttons */}
-        <FadeIn delay={0.5} y={20} className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center">
+        <FadeIn delay={0.5} y={20} className="flex flex-row gap-3 sm:gap-4 items-center w-full md:w-auto justify-start md:justify-end">
           <ResumeButton />
           <ContactButton />
         </FadeIn>

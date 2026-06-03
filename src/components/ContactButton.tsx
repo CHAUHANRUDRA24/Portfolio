@@ -16,7 +16,7 @@ export const ContactButton: React.FC<ContactButtonProps> = ({ className = '' }) 
         outlineOffset: '-3px',
       }}
     >
-      <span className="flex items-center justify-center px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-white font-medium uppercase tracking-widest text-xs sm:text-sm md:text-base whitespace-nowrap">
+      <span className="flex items-center justify-center px-6 py-2.5 sm:px-8 sm:py-3 md:px-10 md:py-3.5 text-white font-medium uppercase tracking-widest text-[10px] sm:text-xs md:text-sm whitespace-nowrap">
         Contact Me
       </span>
     </a>

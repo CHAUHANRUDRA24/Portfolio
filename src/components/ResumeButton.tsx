@@ -10,7 +10,7 @@ export const ResumeButton: React.FC<ResumeButtonProps> = ({ className = '' }) =>
       href="/Rudra_Chauhan_Resume.pdf"
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center justify-center rounded-full transition-all hover:scale-105 active:scale-95 duration-200 cursor-pointer border border-white/20 hover:border-white/50 bg-white/5 hover:bg-white/10 backdrop-blur-md text-white font-medium uppercase tracking-widest text-xs sm:text-sm md:text-base px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 whitespace-nowrap gap-2 sm:gap-3 ${className}`}
+      className={`inline-flex items-center justify-center rounded-full transition-all hover:scale-105 active:scale-95 duration-200 cursor-pointer border border-white/20 hover:border-white/50 bg-white/5 hover:bg-white/10 backdrop-blur-md text-white font-medium uppercase tracking-widest text-[10px] sm:text-xs md:text-sm px-6 py-2.5 sm:px-8 sm:py-3 md:px-10 md:py-3.5 whitespace-nowrap gap-2 sm:gap-3 ${className}`}
       style={{
         boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
       }}
