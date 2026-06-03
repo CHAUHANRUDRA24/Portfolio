@@ -471,7 +471,7 @@ export const ProjectsSection: React.FC = () => {
       {/* Certificate Modal Overlay */}
       <AnimatePresence>
         {selectedCert && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 overflow-y-auto">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 overflow-y-auto" data-lenis-prevent>
             {/* Backdrop */}
             <motion.div 
               initial={{ opacity: 0 }}
@@ -487,6 +487,7 @@ export const ProjectsSection: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 30, scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+              data-lenis-prevent
               className="relative w-full max-w-2xl bg-cardBg text-textLight p-6 md:p-8 shadow-2xl dark:shadow-[0_25px_60px_rgba(0,0,0,0.8)] border border-cardBorder/10 rounded-[28px] mx-auto max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-3rem)] overflow-y-auto min-h-[400px] flex flex-col gap-6 items-center transition-colors duration-300"
             >
               {/* Close Button */}
@@ -581,7 +582,7 @@ export const ProjectsSection: React.FC = () => {
         {selectedProject && (() => {
           const theme = getThemeColors(selectedProject.id);
           return (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 overflow-y-auto">
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 overflow-y-auto" data-lenis-prevent>
               {/* Backdrop */}
               <motion.div 
                 initial={{ opacity: 0 }}
@@ -597,6 +598,7 @@ export const ProjectsSection: React.FC = () => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 30, scale: 0.98 }}
                 transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                data-lenis-prevent
                 className="relative w-full max-w-5xl bg-cardBg text-textLight p-6 sm:p-10 md:p-12 shadow-2xl dark:shadow-[0_25px_60px_rgba(0,0,0,0.8)] border border-cardBorder/10 rounded-[32px] mx-auto max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-3rem)] overflow-y-auto flex flex-col gap-8 items-center transition-colors duration-300"
               >
                 {/* Close Button */}
